@@ -1,0 +1,88 @@
+\documentclass[letterpaper]{article}
+
+\usepackage{general}
+\usepackage{hyperref}
+\pagestyle{empty}
+
+
+\begin{document}
+\begin{center}
+  \Large \textsc{Universidad Nacional Autónoma de Honduras}\\
+  %\textbf{(UJCV)}\\
+  \large Departamento de Matemática\\
+  Sílabo de Programación de Alto Rendimiento  (MMM-680) \\
+\end{center}
+
+\section*{Información del Curso} % Section title in Spanish
+\textbf{Código:} MMM-680 \\
+\textbf{Créditos:} 4 \\
+\textbf{Total de horas:} 60 \\
+\textbf{Requisitos:} MMM-670\\
+\textbf{Aula:} 302 edif. 1847 
+
+\section{Objetivos de Aprendizaje}
+Al terminar el semestre el estudiante será capaz de: % Introduction text
+\begin{enumerate}
+    \item Entender los principios fundamentales de las arquitecturas paralelas. % Competency 1
+    \item Diseñar algoritmos paralelos para resolver problemas prácticos. % Competency 2
+    \item Diseñar programas usando las libreŕıas OpenMP, MPI4PY y MPI. % Competency 3
+    \item Manejar las libreŕıas más utilizadas para el procesamiento numérico de problemas de gran escala: BLAS, LAPACK, ARPACK. % Competency 4
+    \item Desarrollar e implementar algoritmos eficientes utilizando la libreŕıa STL. % Competency 5
+\end{enumerate}
+
+\section*{Contenido} % Section title in Spanish
+\begin{enumerate}
+    \item Principios de arquitecturas paralelas y distribuidas. % Content 1
+    \item Ejemplos de algoritmos paralelos notables:
+        \begin{itemize}
+            \item Optimización por SGD
+            \item Solución numérica de la ecuación de Laplace $\Delta f = 0$.
+        \end{itemize}
+    \item Ejemplos importantes de Programación de Alto Desempeño:
+        \begin{itemize}
+            \item \url{https://github.com/tmikolov/word2vec}
+            \item \url{https://github.com/imneme/pcg-c}
+        \end{itemize}
+    \item Usando \emph{parallel} desde de la linea de comando unix.
+    \item Usando \emph{threads} en C/C++ y Python.
+    \item Llamando código de alto desempeño desde Python.
+    \item Programación paralela en usando el MPI. % Content 3
+    \item Uso de MPI en Python usando mpi4py.
+    \item Utilizando Contenedores Docker.
+    \item Uso de rutinas asincronas: async en Python.
+    \item Análisis y diseño de algoritmos paralelos. % Content 4
+    \item Libreŕıas numéricas BLAS STL y LAPACK. % Content 5
+    \item Libreŕıas numérica CUDA: ejemplo de generacion de numeros aleatorios en GPU.
+    \item Optimización y depuración de código secuencial con \emph{gprof}.
+    \item Optimización y depuración de código paralelo con \emph{mpiP}.
+    \item Comparación con lenguajes de programación funcionales, LEAN y Haskell.
+\end{enumerate}
+
+\section{Calendarización de Clases}
+
+\section{Criterios de Evaluación}
+\subsection{Tareas}
+Se asignará una tarea corta semanalmente, las soluciones se discutirán los días jueves de cada semana. (60\%)
+\subsection{Exámenes}
+Los exámenes son problemas para resolver en casa usando el contenido visto en clase:
+\begin{itemize}
+    \item Jueves 26 de junio. (10\%)
+    \item Jueves 31 de julio. (10\%)
+\end{itemize}
+\subsection{Proyecto Final}
+El estudiante deberá proponer un proyecto de programación que involure su tema de investigación que utilice herramientas de programación de alto desempeño. Se evaluará tres etapas del proyecto: Propuesta, Avance y presentación Final. (20\%)
+
+\section{Referencias}
+\section*{Bibliografía} % Section title in Spanish
+\begin{itemize}
+\item Eijkhout, Victor. Introduction to high performance scientific computing. Lulu. com, 2010.
+APA	
+    \item Anderson, E.; Bai, Z; Bischof, C; Blackford, S.; Demmel, J.; Dongarra, J.; Du Croz, J.; Greenbaum, A.; Hammarling, S.; McKenney, A. y Sorensen, D. LA-PACK Users’ Guide, Third Edition, Society of Industrial and Applied Mathematics, 1999.
+    \item Chapman, B.; Jost, G. y Van der Pas, R. Using OpenMP: Portable Shared Memory Parallel Programming, MIT Press, 2007.
+    \item Dongarra, J.; Foster, I.; Fox, G.; Gropp, W.; Kennedy, K.; Torczon, L. y White, A. (eds) Sourcebook of Parallel Programming, Morgan Kaufmann, 2002.
+    \item Jordan, H. y Alaghband, G. Fundamentals of Parallel Processing, Prentice Hall, 2002.
+    \item Josuttis, N.M. The C++ Standard Library: A Tutorial and Reference, Addison-Wesley, 2008.
+    \item Karniadakis, G. y Kirby II, R. Parallel Scientific Computing in C++ and MPI, Cambridge University Press, 2003.
+\end{itemize}
+
+\end{document}

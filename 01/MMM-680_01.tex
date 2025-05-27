@@ -1,0 +1,26 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   TEMPLATE TO RUN A CLASS.TEX FILE WITHOUT THE REST OF    %
+%   CLASS FILES                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass{beamer}
+
+
+\usepackage{general}
+
+% Tema de la presentación (puedes elegir otro si prefieres)
+\usetheme{Madrid} 
+
+% Paquetes necesarios
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{hyperref} % Para enlaces, aunque no se usan directamente en este ejemplo
+
+% Información de la presentación
+\title{Fundamentos de la Computación Paralela}
+\subtitle{Comparación con la Computación Secuencial y Herramientas Clave}
+\date{\today} % Opcional: \date{} para no mostrar la fecha
+
+\begin{document}
+\input{class.tex}
+\end{document}

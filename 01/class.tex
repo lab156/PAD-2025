@@ -1,0 +1,154 @@
+% Slide 1: Portada
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% Slide 2: Introducción - ¿Qué es la Computación Paralela?
+\begin{frame}{¿Qué es la Computación Paralela?}
+  \begin{itemize}
+      \item La \textbf{computación paralela} es un tipo de computación en el que se ejecutan muchas \textbf{cálculos o procesos simultáneamente}.
+      \item El objetivo es resolver problemas grandes que se pueden dividir en partes más pequeñas, las cuales se resuelven \emph{al mismo tiempo}.
+      \item No es exactamente los mismo que la \textbf{computación de alto rendimiento (HPC)}.
+    \item Ha ganado interés debido a las \textbf{restricciones físicas} que limitan el aumento de la frecuencia del procesador (frequency scaling) y la preocupación por el \textbf{consumo de energía y calor}.
+  \end{itemize}
+\end{frame}
+
+% Slide 3: Computación Secuencial vs. Paralela
+\begin{frame}{Secuencial vs. Paralela}
+  \begin{itemize}
+    \item \textbf{Computación Secuencial:}
+    \begin{itemize}
+        \item Los programas se escriben para ejecutarse como un \textbf{flujo en serial de instrucciones}.
+      \item Solo se ejecuta \textbf{una instrucción a la vez} en una sola CPU.
+    \end{itemize}
+    \item \textbf{Computación Paralela:}
+    \begin{itemize}
+      \item Utiliza \textbf{múltiples elementos de procesamiento simultáneamente} para resolver un problema.
+      \item Esto se logra dividiendo el problema en \textbf{partes independientes}.
+      \item El aumento del rendimiento ahora proviene de \textbf{incrementar el número de procesadores (nucleos o nodos)} en lugar de hacer que un solo core sea más rápido.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+% Slide 4: Arquitecturas Paralelas Fundamentales
+\begin{frame}{Arquitecturas Paralelas}
+  \begin{itemize}
+    \item Principios de \textbf{arquitecturas paralelas y distribuidas}.
+    \item Se pueden clasificar según el \textbf{nivel de soporte hardware al paralelismo}:
+    \begin{itemize}
+      \item \textbf{Computadoras con múltiples elementos de procesamiento en una sola máquina:}
+      \begin{itemize}
+        \item \textbf{Multi-core:} Múltiples unidades de procesamiento (cores) en el mismo chip. Cada core es independiente.
+        \item \textbf{Symmetric Multiprocessing (SMP):} Múltiples procesadores idénticos que comparten memoria y se conectan vía bus.
+      \end{itemize}
+      \item \textbf{Sistemas que usan múltiples computadoras:}
+      \begin{itemize}
+        \item \textbf{Clusters:} Grupo de computadoras acopladas laxamente que trabajan juntas.
+        \item \textbf{Massively Parallel Processors (MPP):} Computadoras con muchos procesadores interconectados con redes especializadas.
+        \item \textbf{Grid computing:} Utiliza computadoras a través de Internet.
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+% Slide 5: Desafíos de la Programación Paralela
+\begin{frame}{Desafíos de la Programación Paralela}
+  \begin{itemize}
+    \item Los algoritmos explícitamente paralelos son \textbf{más difíciles de escribir} que los secuenciales.
+    \item La \textbf{concurrencia} introduce nuevas clases de \textbf{errores de software}, siendo las \textbf{race conditions} las más comunes.
+    \item Es necesaria la \textbf{sincronización} para acceder a recursos compartidos.
+    \item Posibles problemas como \textbf{deadlock} al usar locks.
+    \item La \textbf{comunicación y sincronización} entre subtareas son grandes obstáculos para el rendimiento óptimo.
+    \item Las \textbf{dependencias} de datos (flujo, anti, salida) restringen la paralelización.
+    \item \textbf{Parallel slowdown:} Aumento del tiempo de ejecución por el overhead de comunicación/espera al aumentar la paralelización.
+  \end{itemize}
+\end{frame}
+
+% Slide 6: Modelos de Memoria y Comunicación
+\begin{frame}{Modelos de Memoria y Comunicación}
+  \begin{itemize}
+    \item \textbf{Memoria Compartida (Shared Memory):}
+    \begin{itemize}
+      \item Todos los elementos de procesamiento comparten un \textbf{espacio de direcciones único}.
+      \item Acceso a memoria con latencia y ancho de banda uniformes (UMA) o no uniformes (NUMA).
+      \item La escalabilidad está limitada en comparación con sistemas de memoria distribuida.
+    \end{itemize}
+    \item \textbf{Memoria Distribuida (Distributed Memory):}
+    \begin{itemize}
+      \item Cada elemento de procesamiento tiene su \textbf{propio espacio de direcciones local}.
+      \item La comunicación entre procesos se realiza mediante \textbf{paso de mensajes}.
+      \item Sistemas altamente \textbf{escalables}.
+      \item Ejemplos: Clusters, MPPs.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+% Slide 7: Leyes de Rendimiento Paralelo
+\begin{frame}{Leyes de Rendimiento Paralelo}
+  \begin{itemize}
+    \item \textbf{Ley de Amdahl:}
+    \begin{itemize}
+      \item Establece un \textbf{límite superior teórico} a la mejora de velocidad (speedup) de un programa debido a la paralelización.
+      \item El speedup está limitado por la \textbf{fracción de tiempo que la paralelización puede ser utilizada} (la parte secuencial del programa).
+      \item Muestra que el aumento del número de procesadores genera \emph{rendimientos decrecientes}.
+      \item La mejora óptima se logra balanceando las partes paralelizables y no paralelizables. Tiene limitaciones.
+    \end{itemize}
+    \item \textbf{Ley de Gustafson:}
+    \begin{itemize}
+      \item Ofrece una \textbf{evaluación más realista} del rendimiento paralelo al considerar que el tamaño del problema puede escalar con el número de procesadores.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+% Slide 8: Herramientas Clave para la Programación Paralela
+\begin{frame}{Herramientas Clave (Libraries y APIs)}
+  \begin{itemize}
+    \item Se han creado lenguajes, librerías, APIs y modelos de programación para computadoras paralelas.
+    \item \textbf{OpenMP:}
+    \begin{itemize}
+      \item Librería para \textbf{programación paralela en sistemas de memoria compartida}.
+      \item Proporciona directivas y funciones para crear regiones paralelas, gestionar threads y sincronización.
+    \end{itemize}
+    \item \textbf{MPI (Message Passing Interface):}
+    \begin{itemize}
+      \item Librería para \textbf{programación paralela en sistemas de memoria distribuida}.
+      \item Permite la comunicación explícita (paso de mensajes) entre procesos.
+      \item Es la \textbf{API de paso de mensajes más utilizada}.
+    \end{itemize}
+    \item Otras librerías para procesamiento numérico a gran escala: \textbf{BLAS, LAPACK, ScaLAPACK, ARPACK}.
+  \end{itemize}
+\end{frame}
+
+% Slide 9: Aplicaciones Típicas
+\begin{frame}{Aplicaciones Típicas de la Computación Paralela}
+  \begin{itemize}
+    \item Históricamente, \textbf{computación científica y simulación} (ej: meteorología).
+    \item Ahora se utiliza en campos variados como \textbf{omics} y \textbf{economía}.
+    \item Tipos comunes de problemas adecuados para paralelizar:
+    \begin{itemize}
+        \item Álgebra Lineal Densa y no-Densa.
+      \item Métodos Espectrales (como Fast Fourier Transform).
+      \item Problemas de N-cuerpos.
+      \item Problemas de Malla Estructurada y No Estructurada (ej: análisis de elementos finitos).
+      \item Método de Monte Carlo.
+      \item Lógica Combinacional (ej: criptografía de fuerza bruta).
+      \item Recorrido de Grafos (ej: algoritmos de ordenación).
+      \item Programación Dinámica.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+% Slide 10: Conclusión
+\begin{frame}{Conclusión}
+  \begin{itemize}
+      \item La \textbf{computación paralela} es fundamental para lograr aumentos de rendimiento en la era post-frequency scaling.
+      \item Implica un cambio de paradigma de programación, requiriendo manejar la \emph{concurrencia, comunicación y sincronización}.
+      \item Las arquitecturas varían desde \textbf{multi-core} en desktops hasta \emph{clusters y MPPs} en supercomputadoras.
+    \item Herramientas como \textbf{OpenMP} (memoria compartida) y \textbf{MPI} (memoria distribuida) son esenciales para desarrollar programas paralelos.
+    \item Permite abordar y resolver \textbf{problemas complejos y de gran escala} que antes eran intratables.
+    \item La investigación en \textbf{paralelización automática} continúa, pero la programación explícita es el enfoque dominante.
+  \end{itemize}
+\end{frame}
+
+
+
