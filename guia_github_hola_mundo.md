@@ -4,16 +4,15 @@
 
 GitHub es una plataforma para alojar y colaborar en proyectos de desarrollo de software. Para crear una cuenta:
 
-1. Ve al sitio oficial: [https://github.com](https://github.com)
-2. Haz clic en el botón **Sign up** (Registrarse) en la parte superior derecha.
-3. Completa los campos requeridos:
+1. Visite al sitio oficial: [https://github.com](https://github.com)
+2. Haga clic en el botón **Sign up** (Registrarse) en la parte superior derecha.
+3. Complete los campos requeridos:
    - Nombre de usuario
    - Dirección de correo electrónico
    - Contraseña
-4. Verifica tu correo electrónico.
-5. Opcionalmente, selecciona tus preferencias de configuración inicial.
+4. Verifique tu correo electrónico.
 
-> 💡 **Consejo útil:** Usa un nombre de usuario profesional, ya que será parte de la URL de tus repositorios (ej. `https://github.com/tu_usuario`).
+>  💻 **Consejo útil:** Use un nombre de usuario profesional, ya que será parte de la URL de tus repositorios (ej. `https://github.com/tu_usuario`).
 
 ---
 
@@ -21,9 +20,9 @@ GitHub es una plataforma para alojar y colaborar en proyectos de desarrollo de s
 
 ### Paso 1: Crear el repositorio
 
-1. Inicia sesión en tu cuenta de GitHub.
-2. Haz clic en el símbolo **+** en la esquina superior derecha y selecciona **New repository**.
-3. Completa la información:
+1. Inicie sesión en tu cuenta de GitHub.
+2. Haga clic en el símbolo **+** en la esquina superior derecha y selecciona **New repository**.
+3. Complete la información:
    - **Repository name:** puede ser `hola-mundo-cpp`
    - **Description:** algo como "Mi primer programa en C/C++ en GitHub"
    - Selecciona si quieres que sea público o privado.
@@ -75,3 +74,19 @@ int main() {
 - [Compilar programas C/C++ con g++](https://www.geeksforgeeks.org/compiling-a-c-program-using-g/)
 
 ---
+
+## Opcional: Instalar WSL en una PC
+
+
+
+WSL (Windows Subsystem for Linux) es una característica de Windows que permite ejecutar un entorno Linux directamente en Windows, sin necesidad de una máquina virtual o arranque dual. Esto significa que puedes utilizar herramientas y aplicaciones de Linux en Windows, junto con tus herramientas y aplicaciones de Windows existentes. 
+[https://learn.microsoft.com/es-es/windows/wsl/about](microsoft.com)
+
+### Instalación
+La instalacion de WSL es muy parecida a instalar cualquier otro programa en Windows. Algunas guías utiles son:
+* https://learn.microsoft.com/en-us/windows/wsl/install
+* https://ubuntu.com/desktop/wsl
+
+> **Recomendación**: Para la clase, instale una distribucion común como Ubuntu.
+
+
