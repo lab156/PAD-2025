@@ -10,3 +10,8 @@
 * Mencionamos Github y los libros de William Stein: https://github.com/williamstein/ant/blob/master/ant.pdf
 * Nucleos (Cores) son los elementos de procesamiento de un procesador y  Nodos (Nodes) se refiere a varias computadoras conectadas (Cluster).
 * Arquitecturas x86 y ARM.
+
+2025-05-28
+* https://www.mersenne.org/
+* https://www.fujitsu.com/global/about/innovation/fugaku/
+* https://en.wikipedia.org/wiki/Omics
