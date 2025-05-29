@@ -77,7 +77,7 @@ int main() {
 
 ## Opcional: Instalar WSL en una PC
 
-
+Debido a que en esta clase es necesario escribir mucho código, necesita tener una plataforma (IDE) confiable de desarrollo. Pueden usar la plataforma con la que se sientan más cómodos. Una sugerencia es usar WSL.
 
 WSL (Windows Subsystem for Linux) es una característica de Windows que permite ejecutar un entorno Linux directamente en Windows, sin necesidad de una máquina virtual o arranque dual. Esto significa que puedes utilizar herramientas y aplicaciones de Linux en Windows, junto con tus herramientas y aplicaciones de Windows existentes. 
 [https://learn.microsoft.com/es-es/windows/wsl/about](microsoft.com)
