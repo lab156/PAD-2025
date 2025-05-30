@@ -134,6 +134,10 @@ La forma más sencilla de instalar WSL es usando un solo comando en PowerShell o
 
 ---
 
+> **Recomendación**: Para la clase, instale una distribucion común como Ubuntu.
+
+---
+
 ## Instalación de Otras Distribuciones de Linux (Opcional)
 
 Si deseas instalar una distribución de Linux diferente a Ubuntu, o instalar distribuciones adicionales:
@@ -181,6 +185,5 @@ Una vez instalado, puedes gestionar WSL desde PowerShell o el Símbolo del siste
 ¡Felicidades! Ahora tienes WSL instalado y listo para usar. 🎉
 
 
-> **Recomendación**: Para la clase, instale una distribucion común como Ubuntu.
 
 
