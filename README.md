@@ -1,6 +1,14 @@
 # PAD 2025
 ## Programación de Alto Desempeño (MMM-680)
 
+### Tareas
+**Tarea 1**
+* Modificar `laplace/serial.c` para que inicialice los datos de temperatura usando `malloc`. Comparar los resultados con y sin `malloc`.
+
+-------------
+
+### Apuntes de la clase
+
 2025-05-26
 * Ley de Amdahl https://upload.wikimedia.org/wikipedia/commons/e/ea/AmdahlsLaw.svg
 * https://theartofhpc.com/
