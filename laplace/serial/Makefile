@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -lm
+CFLAGS = -Wall -lm -O3
 TARGET = laplace_serial
 
 
