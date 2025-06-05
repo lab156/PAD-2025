@@ -21,7 +21,7 @@ typedef struct {
 // Global array to store data points
 DataPoint *data_array;
 
-// Function to generate random double between 0 and 1
+// Function to generate random double between 0 and 1 distribucion uniforme
 double random_double() {
     return (double)rand() / RAND_MAX;
 }
@@ -56,7 +56,8 @@ void initialize(int num_data, double m_true, double b_true) {
         exit(EXIT_FAILURE);
     }
 
-    srand(time(NULL)); // Seed the random number generator
+    //srand(time(NULL)); // Seed the random number generator
+    srand(444); // Seed the random number generator
 
     for (int i = 0; i < num_data; i++) {
         data_array[i].x = random_double(); // x values between 0 and 1
