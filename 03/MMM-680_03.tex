@@ -1,0 +1,130 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   TEMPLATE TO RUN A CLASS.TEX FILE WITHOUT THE REST OF    %
+%   CLASS FILES                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\title{Regresión Lineal}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\section{Descenso de Gradiente aplicado a Regresión Lineal}
+
+\begin{frame}{Descenso de Gradiente: Conceptos Fundamentales}
+    \begin{itemize}
+        \item El \textbf{Descenso de Gradiente} es un método para la \textbf{optimización matemática sin restricciones}.
+        \item Es un \textbf{algoritmo iterativo de primer orden} diseñado para \textbf{minimizar una función multivariante diferenciable}.
+        \item La idea central es dar \textbf{pasos repetidos en la dirección opuesta al gradiente} (o gradiente aproximado) de la función en el punto actual, ya que esta es la dirección de \textbf{mayor descenso}.
+        \item Es particularmente útil en \textbf{aprendizaje automático} para la \textbf{minimización de la función de costo o pérdida}.
+        \item Históricamente, se atribuye a Augustin-Louis Cauchy, quien lo sugirió por primera vez en 1847.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Descenso de Gradiente: El Proceso Iterativo}
+    \begin{itemize}
+        \item El proceso comienza con una estimación inicial $\mathbf{x}_{0}$ para un mínimo local de la función $F$.
+        \item La secuencia de puntos se define mediante la siguiente regla de actualización:
+            $$ \mathbf{x}_{n+1}=\mathbf{x}_{n}-\gamma_{n}\nabla F(\mathbf{x}_{n}),\ n\geq 0. $$
+        \item Aquí, $\gamma_{n}$ representa el \textbf{tamaño del paso} o la \textbf{tasa de aprendizaje} (learning rate). Este valor puede variar en cada iteración.
+        \item El término $\gamma \nabla F(\mathbf{a})$ se resta de $\mathbf{a}$ porque el objetivo es \textbf{moverse en contra del gradiente}, hacia el mínimo local.
+        \item Este método garantiza una secuencia \textbf{monótona no creciente} de valores de la función: $F(\mathbf{x}_{0})\geq F(\mathbf{x}_{1})\geq F(\mathbf{x}_{2})\geq \cdots$.
+        \item Para funciones convexas, el descenso de gradiente puede converger a la \textbf{solución global}, ya que todos los mínimos locales son también mínimos globales.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Aplicación a la Regresión Lineal}
+    \begin{itemize}
+        \item La \textbf{Regresión Lineal} es un modelo estadístico que estima la relación entre una variable de respuesta (dependiente) y una o más variables explicativas (independientes).
+        \item En este modelo, las relaciones se representan mediante \textbf{funciones lineales de predicción}, cuyos parámetros desconocidos se estiman a partir de los datos.
+        \item El modelo de regresión lineal se expresa como $y_{i}=\beta _{0}+\beta _{1}x_{i1}+\cdots +\beta _{p}x_{ip}+\varepsilon _{i}$ o en forma matricial $\mathbf{y}=\mathbf{X}\boldsymbol{\beta}+\boldsymbol{\varepsilon}$.
+        \item Para ajustar un modelo lineal, se estiman los coeficientes de regresión $\boldsymbol{\beta}$ de manera que el \textbf{término de error} $\boldsymbol{\varepsilon} = \mathbf{y} - \mathbf{X}\boldsymbol{\beta}$ se minimice.
+        \item Comúnmente, la medida a minimizar es la \textbf{suma de los errores al cuadrado} (MSE): $\|\boldsymbol{\varepsilon}\|_{2}^{2}$. Esta es la \textbf{función de costo} para el descenso de gradiente.
+        \item El vector óptimo de parámetros $\vec{\hat{\beta}}$ es aquel que \textbf{minimiza esta suma de cuadrados}.
+    \end{itemize}
+\end{frame}
+
+%%%%  FRAME  %%%%
+\begin{frame}
+    \frametitle{}
+    \begin{itemize}
+\item En el caso de 2 dimensiones, escribimos:
+    $$y_i = m x_i + b$$
+        \item El gradiente de esta función de pérdida $L$ es: $$\frac{\partial L(D,{\vec{\beta}})}{\partial {\vec{\beta}}} = -2X^{\textsf{T}}Y+2X^{\textsf{T}}X{\vec{\beta}}.$$
+        \item Al igualar el gradiente a cero, se obtiene la solución de \textbf{mínimos cuadrados }: $\vec{\hat{\beta}} = \left(X^{\textsf{T}}X\right)^{-1}X^{\textsf{T}}Y$.
+        \item El descenso de gradiente \textbf{itera para encontrar este mínimo} actualizando $\boldsymbol{\beta}$ en la dirección opuesta al gradiente de la función de pérdida. Para distribuciones de error normales, los resultados de mínimos cuadrados y máxima verosimilitud son idénticos.
+    \end{itemize}
+        \end{frame}
+
+\section{Transformación Box-Muller}
+
+\begin{frame}{Transformación Box-Muller: Generación de Números Aleatorios Normales}
+    \begin{itemize}
+        \item La \textbf{Transformación Box-Muller}, formulada por George Edward Pelham Box y Mervin Edgar Muller, es un \textbf{método de muestreo de números aleatorios}.
+        \item Su propósito es generar \textbf{pares de números aleatorios independientes y distribuidos normalmente estándar} (con expectativa cero y varianza unitaria).
+        \item Para funcionar, requiere una \textbf{fuente de números aleatorios distribuidos uniformemente}.
+        \item La necesidad de esta transformación surgió como una \textbf{alternativa computacionalmente más eficiente} al método de muestreo por transformada inversa.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Transformación Box-Muller: Forma Básica}
+    \begin{itemize}
+        \item Esta es la forma original dada por Box y Muller.
+        \item Dadas dos muestras independientes, $U_1$ y $U_2$, de una \textbf{distribución uniforme en el intervalo (0,1)}.
+        \item Luego, las mapea a dos muestras normalmente distribuidas ($Z_0$ y $Z_1$) utilizando las siguientes ecuaciones:
+            \begin{itemize}
+                \item $Z_0 = \sqrt{-2\ln U_1}\cos(2\pi U_2)$
+                \item $Z_1 = \sqrt{-2\ln U_1}\sin(2\pi U_2)$
+            \end{itemize}
+        \item Las variables resultantes $Z_0$ y $Z_1$ son \textbf{independientes y tienen una distribución normal estándar}.
+        \item La derivación se basa en la propiedad de un sistema cartesiano bidimensional donde las coordenadas X e Y son variables normales independientes.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Transformación Box-Muller: Forma Polar}
+    \begin{itemize}
+        \item Esta forma fue propuesta inicialmente por J. Bell y modificada por R. Knop.
+        \item Toma dos valores, $u$ y $v$, \textbf{independientes y distribuidos uniformemente en el intervalo cerrado $[-1, +1]$}.
+        \item Se calcula $s = u^2 + v^2$. Si $s=0$ o $s \geq 1$, se descartan $u$ y $v$, y se elige otro par.
+        \item La principal ventaja es que \textbf{evita el uso directo de las funciones seno y coseno}, reemplazándolas por divisiones. Esto puede ser beneficioso cuando las funciones trigonométricas son costosas de calcular.
+        \item Las dos desviaciones normales estándar se producen de la siguiente manera:
+            \begin{itemize}
+                \item $z_0 = u \cdot \sqrt{\frac{-2\ln s}{s}}$
+                \item $z_1 = v \cdot \sqrt{\frac{-2\ln s}{s}}$
+            \end{itemize}
+        \item La forma polar es un tipo de \textbf{muestreo por rechazo}. Descarta aproximadamente el $1 - \pi/4 \approx 21.46\%$ de los pares de números uniformes de entrada.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Transformación Box-Muller: Comparación y Generalización}
+    \begin{itemize}
+        \item La \textbf{forma polar puede ser más rápida} que la forma básica en algunos casos, ya que las divisiones pueden ser computacionalmente menos costosas que las funciones trigonométricas, a pesar de que desecha algunos números generados.
+        \item La forma básica requiere dos multiplicaciones, 1/2 logaritmo, 1/2 raíz cuadrada y una función trigonométrica por cada variable normal generada.
+        \item La forma polar requiere 3/2 multiplicaciones, 1/2 logaritmo, 1/2 raíz cuadrada y 1/2 división por cada variable normal generada, reemplazando una multiplicación y una función trigonométrica con una división y un bucle condicional.
+        \item \textbf{Generalización a cualquier distribución normal}:
+            \begin{itemize}
+                \item La transformación Box-Muller estándar genera valores de una \textbf{distribución normal estándar} ($\mu=0$, $\sigma=1$).
+                \item Para obtener valores de cualquier distribución normal con \textbf{media $\mu$ y varianza $\sigma^2$}, se puede aplicar la fórmula: $X = Z\sigma + \mu$, donde $Z$ es un valor normal estándar generado por Box-Muller.
+            \end{itemize}
+        \item \textbf{Limitaciones}: La precisión finita de las computadoras impone un límite en la capacidad de la transformación para producir desviaciones normales muy extremas, truncando las "colas" de la distribución.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \centering
+    \textbf{¡Gracias por su atención!}
+\end{frame}
+
+\end{document}
+
