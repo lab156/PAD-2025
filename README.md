@@ -4,6 +4,7 @@
 ### Tareas
 **Tarea 1**
 * Modificar `laplace/serial.c` para que inicialice los datos de temperatura usando `malloc`. Comparar los resultados con y sin `malloc`.
+* Implementar la *forma polar* del método de Box-Muller y comparar el desempeño con la versión *forma básica* que aparece en el archivo `lineal.c`.
 
 -------------
 
