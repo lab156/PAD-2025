@@ -28,3 +28,10 @@
 2025-06-04
 * https://en-m-wikipedia-org.translate.goog/wiki/Box%E2%80%93Muller_transform?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=tc
 * https://www-geeksforgeeks-org.translate.goog/dynamic-memory-allocation-in-c-using-malloc-calloc-free-and-realloc/?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=tc
+
+2025-06-10
+* Google search: how to run sleep in a C program in windows
+* Google search: cuantas veces mas rapido es la memoria ram que el nvme
+* https://webassembly.org/
+* https://en-m-wikipedia-org.translate.goog/wiki/Tom%C3%A1%C5%A1_Mikolov?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=tc
+* https://mattmahoney.net/dc/textdata.html
