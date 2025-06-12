@@ -5,7 +5,7 @@
 // In Windows use Windows.h and function called Sleep(milliseconds)
 #include <unistd.h>
 
-
+//cambio sin importancia
 double random_double() {
     return (double)rand() / RAND_MAX;
 }

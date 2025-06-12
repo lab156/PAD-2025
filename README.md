@@ -35,3 +35,8 @@
 * https://webassembly.org/
 * https://en-m-wikipedia-org.translate.goog/wiki/Tom%C3%A1%C5%A1_Mikolov?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=tc
 * https://mattmahoney.net/dc/textdata.html
+
+2025-06-11
+* Search: which is better dynamic libraries or static libraries in C
+* https://www.gnu.org/software/parallel/
+* https://github.com/imneme/pcg-c/blob/master/src/pcg-advance-8.c

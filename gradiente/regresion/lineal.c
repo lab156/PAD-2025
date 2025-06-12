@@ -22,6 +22,8 @@ typedef struct {
 // Global array to store data points
 DataPoint *data_array;
 
+// Aqui iban random_double y random_normal
+
 // Function to initialize data
 void initialize(int num_data, double m_true, double b_true) {
     data_array = (DataPoint *)malloc(num_data * sizeof(DataPoint));

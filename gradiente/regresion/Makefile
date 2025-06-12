@@ -4,7 +4,7 @@ LFLAGS = -L. -lreg
 TARGET1 = linear_regr_grad_desc
 TARGET2 = mem_management
 TARGET3 = libreg.a
-LIBFILES = reg_utils.h reg_utils.h
+LIBFILES = reg_utils.h reg_utils.c
 
 
 #compilacion directa con
