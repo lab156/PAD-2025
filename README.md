@@ -3,9 +3,17 @@
 
 ### Tareas
 **Tarea 1**
+
 * Modificar `laplace/serial.c` para que inicialice los datos de temperatura usando `malloc`. Comparar los resultados con y sin `malloc`.
 * Implementar la *forma polar* del método de Box-Muller y comparar el desempeño con la versión *forma básica* que aparece en el archivo `lineal.c`.
 
+Tarea 2
+* Terminar la Tarea 1 (los dos ejercicios)
+* Modificar `gradiente/lineal.c` para que acepte los siguientes argumentos:
+    *  -n: numero de puntos de datos que hay que generar.
+    *  -m: la pendiente de la recta de regresion.
+    *  -b: el intercepto en el eje y.
+     
 -------------
 
 ### Apuntes de la clase
@@ -40,3 +48,11 @@
 * Search: which is better dynamic libraries or static libraries in C
 * https://www.gnu.org/software/parallel/
 * https://github.com/imneme/pcg-c/blob/master/src/pcg-advance-8.c
+
+2025-06-16
+* https://www.gnu.org/software/parallel/
+* https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
+* https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
+* Search "union in C"
+* Search "C keywords"
+
