@@ -91,7 +91,7 @@ void gradient_descent(int num_data, double learning_rate, int epochs, double *m_
 
 int main() {
     // --- Configuration ---
-    int num_data_points = 10000000;  // Number of data points to generate
+    int num_data_points = 1000000;  // Number of data points to generate
     double true_slope = 2.5;     // True slope of the line
     double true_intercept = 1.0; // True y-intercept of the line
 

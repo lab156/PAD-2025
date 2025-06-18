@@ -35,17 +35,21 @@ Este comando repite el argumento ej. `$ echo "hola mundo"`
 ls
 -------
 
-pwd
+pwd 
 -------
+Present Working Directory
 
 mv, cp, mkdir
 -------
+mv -- mover
+cp -- copiar
+mkdir -- make directory
 
 ------------------------
 
 # Operadores de Control y Redireccion
-1) `;` separa. `&` background y `|` pipe.
-2) if else `&&` y `||`
+1) `;` separa. `&` background y `|` pipe. (de control)
+2) <comando> `&&` <fue exitoso> `||` <fracaso>
 3) reescribir `>` y append (agregar) `>>`
 
 
