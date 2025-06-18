@@ -1,9 +1,11 @@
 #include <stdlib.h>
 #include <math.h>
 #include <sys/time.h>
+#include <time.h>
 // Includes sleep function, only for Linux
 // In Windows use Windows.h and function called Sleep(milliseconds)
 #include <unistd.h>
+#include <stdio.h>
 
 //cambio sin importancia
 double random_double() {
@@ -30,4 +32,30 @@ double random_normal(double mean, double stddev) {
 
     spare = sqrt(-2.0 * log(u1)) * cos(2.0 * M_PI * u2);
     return mean + stddev * (sqrt(-2.0 * log(u1)) * sin(2.0 * M_PI * u2));
+}
+
+// Structure to hold data points
+typedef struct {
+    double x;
+    double y;
+} DataPoint;
+
+
+// Function to initialize data
+void initialize_data(int num_data, DataPoint *data_array, double m_true, double b_true) {
+    if (data_array == NULL) {
+        fprintf(stderr, "Memory allocation failed for data_array\n");
+        exit(EXIT_FAILURE);
+    }
+
+    srand(time(NULL)); // Seed the random number generator
+    //srand(rand_seed); // Seed the random number generator
+
+    for (int i = 0; i < num_data; i++) {
+        data_array[i].x = random_double(); // x values between 0 and 1
+        double y_exact = m_true * data_array[i].x + b_true;
+        // Add Gaussian noise (mean 0, standard deviation e.g., 0.1)
+        data_array[i].y = y_exact + random_normal(0.0, 0.1);
+    }
+    printf("Data initialized with %d points based on m=%.2f, b=%.2f (with noise).\n", num_data, m_true, b_true);
 }

@@ -10,10 +10,12 @@
 
 
 // Structure to hold data points
+/*
 typedef struct {
     double x;
     double y;
 } DataPoint;
+*/
 
 // Global array to store data points
 DataPoint *data_array;
