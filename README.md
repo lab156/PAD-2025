@@ -52,7 +52,6 @@ Tarea 2
 2025-06-16
 * https://www.gnu.org/software/parallel/
 * https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
-* https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
 * Search "union in C"
 * Search "C keywords"
 
