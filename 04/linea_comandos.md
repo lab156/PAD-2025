@@ -59,6 +59,12 @@ mkdir -- make directory
  seq -w 01 10 | xargs -I {} ./generate_write data/file-{}.csv
 ```
 
+# Ejemplo de uso de parallel
+
+```bash
+ time parallel ./lineal_args ::: data/*
+```
+
 ---------------
 
 # Adios

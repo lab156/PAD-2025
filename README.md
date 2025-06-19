@@ -56,3 +56,6 @@ Tarea 2
 * Search "union in C"
 * Search "C keywords"
 
+2025-06-18
+* https://www.gnu.org/software/parallel/parallel_examples.html
+
