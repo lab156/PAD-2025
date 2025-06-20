@@ -10,7 +10,7 @@ TARGET = laplace_serial
 all: $(TARGET)
 
 $(TARGET): $(TARGET).c
-	$(CC) $(CFLAGS) -o $(TARGET) $(TARGET).c
+	$(CC) $(TARGET).c -o $(TARGET) $(CFLAGS) 
 
 clean:
 	rm -f $(TARGET)
