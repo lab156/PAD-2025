@@ -49,7 +49,10 @@ int main(int argc, char *argv[]) {
     struct timeval start_time, stop_time, elapsed_time;  // timers
 
     printf("Maximum iterations [100-4000]?\n");
-    scanf("%d", &max_iterations);
+
+    // To avoid the unused return value warning check the output of scanf
+    if (scanf("%d", &max_iterations) != 1) 
+        printf("Something went wrong, Failed to read integer.\n");
 
     gettimeofday(&start_time,NULL); // Unix timer
 
