@@ -58,3 +58,11 @@ Tarea 2
 2025-06-18
 * https://www.gnu.org/software/parallel/parallel_examples.html
 
+2025-06-23
+* https://stackoverflow.com/questions/2364147/how-to-get-just-one-file-from-another-branch
+Para traer solo un archivo de otra branch en git, haga
+```
+git checkout main                 # first get back to main
+git checkout experiment -- app.js # then copy the version of app.js 
+                                  # from branch "experiment"
+```

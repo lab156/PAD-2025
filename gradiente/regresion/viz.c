@@ -23,6 +23,8 @@ int main() {
 
     int num_sample = 100000;
 
+    // w.ws_col nos da el numero de barras de la terminal
+    // es decir la ventana que estamos usando.
     printf("Terminal width: %d\n", w.ws_col);
 
     /* double data_array[100]; */
