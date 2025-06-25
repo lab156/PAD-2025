@@ -67,3 +67,6 @@ git checkout main                 # first get back to main
 git checkout experiment -- app.js # then copy the version of app.js 
                                   # from branch "experiment"
 ```
+
+2025-06-25
+* https://www.geeksforgeeks.org/c/dynamically-allocate-2d-array-c/
