@@ -32,8 +32,10 @@
 // largest permitted change in temp (This value takes about 3400 steps)
 #define MAX_TEMP_ERROR 0.01
 
-double Temperature[ROWS+2][COLUMNS+2];      // temperature grid
-double Temperature_last[ROWS+2][COLUMNS+2]; // temperature grid from last iteration
+//double Temperature[ROWS+2][COLUMNS+2];      // temperature grid
+//double Temperature_last[ROWS+2][COLUMNS+2]; // temperature grid from last iteration
+
+double *Temperature, *Temperature_last;
 
 //   helper routines
 void initialize();
@@ -47,6 +49,10 @@ int main(int argc, char *argv[]) {
     int iteration=1;                                     // current iteration
     double dt=100;                                       // largest change in t
     struct timeval start_time, stop_time, elapsed_time;  // timers
+                                                         //
+    // Allocation of Temp arrays
+    Temperature = (double *)malloc((ROWS + 2)*(COLUMNS + 2)*sizeof(double));
+    Temperature_last = (double *)malloc((ROWS + 2)*(COLUMNS + 2)*sizeof(double));
 
     printf("Maximum iterations [100-4000]?\n");
 
@@ -94,6 +100,9 @@ int main(int argc, char *argv[]) {
 
     printf("\nMax error at iteration %d was %f\n", iteration-1, dt);
     printf("Total time was %f seconds.\n", elapsed_time.tv_sec+elapsed_time.tv_usec/1000000.0);
+
+    free(Temperature);
+    free(Temperature);
 
 }
 
