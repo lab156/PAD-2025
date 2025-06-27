@@ -1,0 +1,85 @@
+\documentclass{beamer}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+
+\title{Introducción a Pthreads}
+\author{Programación de Alto Rendimiento MMM-680}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}{¿Qué son los Pthreads?}
+    \begin{itemize}
+        \item thread = hilo
+        \item Pthreads es una biblioteca estándar para crear y sincronizar hilos en C.
+        \item Permite la ejecución concurrente de tareas, mejorando el rendimiento en sistemas multinúcleo.
+        \item Para usar la biblioteca, es necesario incluir \texttt{<pthread.h>} y compilar con la bandera \texttt{-pthread}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Creación de Hilos}
+    La función \texttt{pthread\_create()} se utiliza para crear un nuevo hilo.
+    \begin{block}{Sintaxis}
+        \texttt{int pthread\_create(pthread\_t *thread, const pthread\_attr\_t *attr, void *(*start\_routine)(void *), void *arg);}
+    \end{block}
+    \begin{itemize}
+        \item \texttt{thread}: Puntero a una variable de tipo \texttt{pthread\_t} que identificará al nuevo hilo.
+        \item \texttt{attr}: Atributos del hilo (normalmente \texttt{NULL} para los atributos por defecto).
+        \item \texttt{start\_routine}: Función que ejecutará el hilo.
+        \item \texttt{arg}: Argumentos para la función \texttt{start\_routine}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Terminación de Hilos}
+    Un hilo puede terminar de varias maneras:
+    \begin{itemize}
+        \item Llamando a \texttt{pthread\_exit()}.
+        \item Retornando de la función \texttt{start\_routine}.
+        \item Si el proceso principal termina con \texttt{exit()}.
+    \end{itemize}
+    \vspace{1cm}
+    La función \texttt{pthread\_join()} bloquea el hilo llamante hasta que el hilo especificado termine.
+    \begin{block}{Sintaxis}
+        \texttt{int pthread\_join(pthread\_t thread, void **retval);}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Sincronización con Mutexes}
+    Un mutex (exclusión mutua) se utiliza para proteger regiones críticas y evitar condiciones de carrera.
+    \begin{itemize}
+        \item \texttt{pthread\_mutex\_lock()}: Bloquea un mutex. Si el mutex ya está bloqueado, el hilo se bloquea hasta que se libere.
+        \item \texttt{pthread\_mutex\_unlock()}: Desbloquea un mutex, permitiendo que otros hilos lo adquiera.
+    \end{itemize}
+    \begin{center}
+        \includegraphics[width=0.5\textwidth]{{Mutex.png}}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Sincronización con Variables de Condición}
+    Las variables de condición permiten a los hilos esperar a que una condición específica se cumpla.
+    \begin{itemize}
+        \item \texttt{pthread\_cond\_wait()}: Atómicamente desbloquea un mutex y espera a que una variable de condición sea señalada.
+        \item \texttt{pthread\_cond\_signal()}: Despierta a un hilo que está esperando en una variable de condición.
+        \item \texttt{pthread\_cond\_broadcast()}: Despierta a todos los hilos que están esperando en una variable de condición.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Compilación y Resumen}
+    Para compilar un programa que utiliza pthreads, se debe enlazar la biblioteca:
+    \begin{block}{Comando de Compilación}
+        \texttt{gcc -o mi\_programa mi\_programa.c -pthread}
+    \end{block}
+    \vspace{1cm}
+    \textbf{Resumen:}
+    \begin{itemize}
+        \item Pthreads es una herramienta poderosa para la programación concurrente en C.
+        \item La sincronización es clave para evitar errores como las condiciones de carrera y los deadlocks.
+        \item El uso de mutexes y variables de condición es fundamental para la correcta coordinación de los hilos.
+    \end{itemize}
+\end{frame}
+
+\end{document}

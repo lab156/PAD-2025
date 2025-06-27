@@ -1,0 +1,155 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   TEMPLATE TO RUN A CLASS.TEX FILE WITHOUT THE REST OF    %
+%   CLASS FILES                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref} % Para enlaces
+
+% Configuración del tema (puedes elegir otro, por ejemplo, Juanlespins, PaloAlto, Berlin)
+\usetheme{Madrid}
+
+\title{Introducción a la librería pthreads en C}
+\institute{Programación de Alto Rendimiento} % Reemplaza con tu institución
+\date{\today}
+
+\begin{document}
+
+% Diapositiva 1: Página de Título
+\frame{\titlepage}
+
+% Diapositiva 2: ¿Qué son los pthreads?
+\begin{frame}{¿Qué son los pthreads?}
+    \begin{itemize}
+        \item La biblioteca \textbf{pthreads} (POSIX Threads) es una \textbf{API estándar} para hilos en C/C++.
+        \item Permite la creación de \textbf{múltiples flujos de ejecución concurrentes} dentro de un mismo proceso.
+        \item thread = hilo.
+        \item \textbf{Beneficios Clave}:
+        \begin{itemize}
+            \item \textbf{Aprovechamiento de Multi-núcleos}: Muy efectiva en sistemas con múltiples procesadores o núcleos, mejorando el rendimiento a través del paralelismo.
+            \item \textbf{Menor Sobrecarga}: Requiere menos recursos que la creación de nuevos procesos (`fork()`) porque los hilos comparten el espacio de memoria del proceso padre.
+            \item \textbf{Repartición de Recursos}: Todos los hilos dentro de un proceso comparten el mismo espacio de direcciones de memoria.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+% Diapositiva 3: Conceptos Básicos de Hilos
+\begin{frame}{Conceptos Básicos de Hilos}
+    \begin{itemize}
+        \item Los hilos dentro del mismo proceso \textbf{comparten} los siguientes recursos:
+        \begin{itemize}
+            \item \textbf{Instrucciones del proceso}.
+            \item La \textbf{mayoría de los datos}.
+            \item \textbf{Archivos abiertos} (descriptores).
+            \item \textbf{Señales y manejadores de señales}.
+            \item Directorio de trabajo actual.
+            \item ID de usuario y grupo.
+        \end{itemize}
+        \item Cada hilo posee atributos \textbf{únicos}:
+        \begin{itemize}
+            \item \textbf{ID de Hilo} (Thread ID).
+            \item Conjunto de registros y puntero de pila.
+            \item Pila para variables locales y direcciones de retorno.
+            \item Máscara de señal.
+            \item Prioridad.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+% Diapositiva 4: Creación y Terminación de Hilos
+\begin{frame}{Creación y Terminación de Hilos}
+    \begin{itemize}
+        \item \textbf{\texttt{pthread\_create()}}:
+        \begin{itemize}
+            \item \textbf{Función}: Crea un nuevo hilo y comienza su ejecución, asignándole una función de inicio.
+            \item \textbf{Sintaxis}:
+                \texttt{int pthread\_create(pthread\_t *thread, const pthread\_attr\_t *attr, void *(*start\_routine)(void *), void *arg);}.
+            \item \textbf{Parámetros Clave}:
+                \begin{itemize}
+                    \item \texttt{thread}: Puntero para almacenar el ID del nuevo hilo.
+                    \item \texttt{start\_routine}: Puntero a la función que ejecutará el hilo.
+                    \item \texttt{arg}: Argumento (un puntero a `void`) pasado a la función del hilo.
+                \end{itemize}
+        \end{itemize}
+        \item \textbf{\texttt{pthread\_exit()}}:
+        \begin{itemize}
+            \item \textbf{Función}: Termina explícitamente el hilo que la invoca.
+            \item No afecta la ejecución de otros hilos.
+        \end{itemize}
+        \item \textbf{\texttt{pthread\_join()}}:
+        \begin{itemize}
+            \item \textbf{Función}: Hace que el hilo llamante \textbf{espere} a que un hilo especificado termine su ejecución.
+            \item \textbf{Importancia}: Crucial para sincronizar el hilo principal y los hilos secundarios, evitando que el programa principal finalice prematuramente.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+% Diapositiva 5: Sincronización de Hilos (Parte 1): Mutexes
+\begin{frame}{Sincronización de Hilos: Mutexes}
+    \begin{itemize}
+        \item \textbf{Mutexes} (Bloqueos de Exclusión Mutua):
+        \begin{itemize}
+            \item \textbf{Propósito}: Previenen \textbf{condiciones de carrera} y aseguran la consistencia de los datos compartidos.
+            \item \textbf{Funcionamiento}: Garantizan \textbf{acceso exclusivo} a una "región crítica" de memoria por un solo hilo a la vez.
+            \item \textbf{Funciones Comunes}:
+                \begin{itemize}
+                    \item \texttt{pthread\_mutex\_init()}: Inicializa un mutex.
+                    \item \texttt{pthread\_mutex\_lock()}: Bloquea el mutex; si ya está bloqueado, el hilo llamante se suspende.
+                    \item \texttt{pthread\_mutex\_unlock()}: Desbloquea el mutex.
+                    \item \texttt{pthread\_mutex\_destroy()}: Libera los recursos de un mutex.
+                \end{itemize}
+            \item \textbf{Ejemplo de Riesgo}: La operación de incremento (\texttt{counter++}) sin protección por mutexes puede llevar a resultados incorrectos si varios hilos la ejecutan concurrentemente.
+            \item \textbf{Advertencia}: Un uso incorrecto (ej. no liberar un mutex) o un orden inadecuado al bloquear múltiples mutexes puede causar \textbf{deadlock} (interbloqueo).
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+% Diapositiva 6: Sincronización de Hilos (Parte 2): Variables de Condición
+\begin{frame}{Sincronización de Hilos: Variables de Condición}
+    \begin{itemize}
+        \item \textbf{Variables de Condición} (\texttt{pthread\_cond\_t}):
+        \begin{itemize}
+            \item \textbf{Propósito}: Permiten a los hilos suspender su ejecución y liberar el procesador hasta que se cumpla una \textbf{condición específica}.
+            \item \textbf{Asociación Obligatoria}: Siempre deben usarse \textbf{junto con un mutex} para evitar condiciones de carrera.
+            \item \textbf{Funciones Clave}:
+                \begin{itemize}
+                    \item \texttt{pthread\_cond\_init()}: Inicializa una variable de condición.
+                    \item \texttt{pthread\_cond\_wait()}: Bloquea el hilo llamante (liberando el mutex asociado) hasta que la condición sea señalada.
+                    \item \texttt{pthread\_cond\_signal()}: Despierta a \textbf{un hilo} que esté esperando en la variable de condición.
+                    \item \texttt{pthread\_cond\_broadcast()}: Despierta a \textbf{todos los hilos} que estén esperando en la variable de condición.
+                    \item \texttt{pthread\_cond\_destroy()}: Libera los recursos de una variable de condición.
+                \end{itemize}
+            \item \textbf{Consideración Importante}: La lógica de las condiciones (sentencias \texttt{if}/\texttt{while}) debe garantizar que la señal se ejecute si la espera se activa, para evitar deadlocks.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+% Diapositiva 7: Compilación y Uso
+\begin{frame}{Compilación y Uso}
+    \begin{itemize}
+        \item \textbf{Compilación}:
+        \begin{itemize}
+            \item Para compilar programas C que utilizan la biblioteca pthreads, es necesario \textbf{enlazarla}.
+            \item Use la bandera \texttt{\textbf{-pthread}} o \texttt{\textbf{-lpthread}} con el compilador GCC/G++.
+            \item \textbf{Ejemplo}: \texttt{gcc mi\_programa.c -o mi\_programa -pthread}.
+        \end{itemize}
+        \item \textbf{Ejecución}:
+        \begin{itemize}
+            \item Simplemente ejecute el binario compilado: \texttt{./mi\_programa}.
+        \end{itemize}
+        \item \textbf{Consideraciones Importantes}:
+        \begin{itemize}
+            \item \textbf{Código "Thread Safe"}: Las funciones llamadas por los hilos deben ser "thread safe" para manejar correctamente el acceso a variables compartidas.
+            \item \textbf{Depuración}: La depuración de programas multihilo puede ser compleja debido a la naturaleza no determinista de la ejecución concurrente. Herramientas como GDB o DDD pueden ser útiles.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\end{document}
