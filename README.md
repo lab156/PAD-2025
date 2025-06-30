@@ -7,12 +7,17 @@
 * Modificar `laplace/serial.c` para que inicialice los datos de temperatura usando `malloc`. Comparar los resultados con y sin `malloc`.
 * Implementar la *forma polar* del método de Box-Muller y comparar el desempeño con la versión *forma básica* que aparece en el archivo `lineal.c`.
 
-Tarea 2
+**Tarea 2**
+
 * Terminar la Tarea 1 (los dos ejercicios)
 * Modificar `gradiente/lineal.c` para que acepte los siguientes argumentos:
     *  -n: numero de puntos de datos que hay que generar.
     *  -m: la pendiente de la recta de regresion.
     *  -b: el intercepto en el eje y.
+
+**Tarea 3**
+
+* 
      
 -------------
 
