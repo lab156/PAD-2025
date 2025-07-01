@@ -49,7 +49,7 @@
 \end{frame}
 
 \begin{frame}{Sincronización con Mutexes}
-    Un mutex (exclusión mutua) se utiliza para proteger regiones críticas y evitar condiciones de carrera.
+    Un mutex = mutual exclusive (exclusión mutua) se utiliza para proteger regiones críticas y evitar condiciones de carrera.
     \begin{itemize}
         \item \texttt{pthread\_mutex\_lock()}: Bloquea un mutex. Si el mutex ya está bloqueado, el hilo se bloquea hasta que se libere.
         \item \texttt{pthread\_mutex\_unlock()}: Desbloquea un mutex, permitiendo que otros hilos lo adquiera.
