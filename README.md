@@ -75,3 +75,8 @@ git checkout experiment -- app.js # then copy the version of app.js
 
 2025-06-25
 * https://www.geeksforgeeks.org/c/dynamically-allocate-2d-array-c/
+
+2025-06-30
+* https://es.wikipedia.org/wiki/POSIX
+* https://en.wikipedia.org/wiki/Bubble_sort
+* https://en.wikipedia.org/wiki/Quicksort#/media/File:Sorting_quicksort_anim.gif

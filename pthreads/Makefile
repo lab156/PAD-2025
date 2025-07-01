@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -lm -O3 -Wall -lpthread
+CFLAGS = -lm -Ofast -Wall -lpthread
 LFLAGS = -L. -lreg 
 
 TARGET1 = ex

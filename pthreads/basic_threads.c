@@ -1,5 +1,6 @@
 #include <pthread.h>
 #include <stdio.h>
+#include <unistd.h>
 
 void* foo(void* arg) {
     printf("Created a new thread. \n");
@@ -14,6 +15,7 @@ int main() {
     // Creating a new thread. 
     pthread_create(&thread1, NULL, foo, NULL);
 
+    //sleep(3);
     // Wait for the thread to finish
     pthread_join(thread1, NULL);
 
