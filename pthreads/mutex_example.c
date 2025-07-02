@@ -11,11 +11,12 @@
 #include <stdio.h>
 #include <pthread.h>
 
+// Note que log_cnt es un variable
 int log_cnt = 0;
 pthread_mutex_t mutex;
 
 void* routine(void *arg) {
-    for (int i = 0; i < 10000000; i++) {
+    for (int i = 0; i < 100000000; i++) {
         pthread_mutex_lock(&mutex);
         log_cnt++;
         pthread_mutex_unlock(&mutex);

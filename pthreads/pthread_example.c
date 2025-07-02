@@ -10,7 +10,7 @@ void *thread_function(void *arg) {
     long thread_id = (long)arg;
     printf("Thread %ld: Starting execution.\n", thread_id);
     // Simulate some work
-    sleep(2);
+    sleep(5);
     printf("Thread %ld: Finished execution.\n", thread_id);
     return (void *)(thread_id * 10); // Example of returning a value
 }
