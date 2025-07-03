@@ -38,4 +38,4 @@ $(TARGET6): $(TARGET6).c
 	$(CC) $(TARGET6).c $(LFLAGS) -o $(TARGET6) $(CFLAGS)
 
 clean:
-	rm -f $(TARGET1) $(TARGET2) $(TARGET3) $(TARGET4)  reg_utils.o
+	rm $(TARGET1) $(TARGET2) $(TARGET3) $(TARGET4) $(TARGET5) $(TARGET6) reg_utils.o

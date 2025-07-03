@@ -78,9 +78,8 @@ int main(int argc, char *argv[]) {
     gettimeofday(&start_time,NULL); // Unix timer
                                     
     double estimated_slope, estimated_intercept;
-    printf("\nStarting Gradient Descent...\n");
-    gradient_descent(num_data_points, learning_rate, epochs,
-            &estimated_slope, &estimated_intercept, data_array);
+    gradient_descent(num_data_points, learning_rate, epochs, &estimated_slope, &estimated_intercept, data_array);
+    //thread_gradient_descent(num_data_points, learning_rate, epochs, &estimated_slope, &estimated_intercept, data_array);
 
 
     gettimeofday(&stop_time,NULL);

@@ -6,6 +6,7 @@
 // In Windows use Windows.h and function called Sleep(milliseconds)
 #include <unistd.h>
 #include <stdio.h>
+#include <pthread.h>
 
 //cambio sin importancia
 double random_double() {
@@ -65,6 +66,7 @@ void initialize_data(int num_data, DataPoint *data_array, double m_true, double 
 // Function to perform gradient descent
 void gradient_descent(int num_data, double learning_rate, int epochs, 
     double *m_estimated, double *b_estimated, DataPoint *data_array) {
+    printf("\nStarting Gradient Descent...\n");
     // Initialize parameters
     *m_estimated = 0.0;
     *b_estimated = 0.0;
@@ -93,15 +95,133 @@ void gradient_descent(int num_data, double learning_rate, int epochs,
         *m_estimated -= learning_rate * m_gradient;
         *b_estimated -= learning_rate * b_gradient;
 
-        if ((epoch + 1) % (epochs / 10) == 0 || epoch == 0) {
+        if ((epoch + 1) % (epochs/3) == 0 || epoch == 0) {
             double mse = 0.0;
             for (int i = 0; i < num_data; i++) {
-                double y_predicted = (*m_estimated) * data_array[i].x + (*b_estimated);
+                double y_predicted = (*m_estimated) * data_array[i].x 
+                                          + (*b_estimated);
                 mse += pow(data_array[i].y - y_predicted, 2);
             }
             mse /= num_data;
-           // printf("Epoch %d/%d: m_est = %.4f, b_est = %.4f, MSE = %.4f\n",
-           //        epoch + 1, epochs, *m_estimated, *b_estimated, mse);
+            printf("Epoch %d/%d: m_est = %.4f, b_est = %.4f, MSE = %.4f\n",
+                   epoch + 1, epochs, *m_estimated, *b_estimated, mse);
         }
+    }
+}
+
+
+// Argumentos de un thread
+struct thread_arg{
+   int id; // identidad de cada hilo
+   DataPoint *subarray; // arreglo que le toca sumar al hilo
+   int subarray_len; // longitud del arreglo subarray
+   double m_estimated;
+   double b_estimated;
+   double m_gradient;
+   double b_gradient;
+};
+
+
+// This is the function that each thread will execute.
+void *thread_sum(void *arg) {
+    struct thread_arg *targ;
+    targ = (struct thread_arg *)arg; // cast a apuntador a thread_arg
+                                     //
+    for (int i = 0; i < targ->subarray_len; i++){
+        double y_predicted = (targ->m_estimated)*(targ->subarray[i].x) 
+            + (targ->b_estimated);
+        //targ->total += targ->subarray[10*(targ->id) + i];
+        targ->b_gradient += targ->subarray[i].y - y_predicted;
+        targ->m_gradient += 
+            (targ->subarray[i].x)*(targ->subarray[i].y - y_predicted);
+    }
+        targ->m_gradient *= -2.0;
+        targ->b_gradient *= -2.0;
+    return (void *)(targ); 
+}
+
+void thread_gradient_descent(int num_data, double learning_rate, int epochs, 
+    double *m_estimated, double *b_estimated, DataPoint *array) {
+    int NUM_THREADS = 16;
+    printf("\nStarting Thread Gradient Descent with %d threads\n", 
+            NUM_THREADS);
+    // Initialize parameters
+    *m_estimated = 0.0;
+    *b_estimated = 0.0;
+
+    for (int epoch = 0; epoch < epochs; epoch++) {
+        double m_gradient = 0.0;
+        double b_gradient = 0.0;
+
+        pthread_t threads[NUM_THREADS];
+        int rc; // sirve para revisar si el hilo se creo directamente
+        void *ret_val;
+        struct thread_arg arg[NUM_THREADS];
+
+
+        for (int i = 0; i < NUM_THREADS; i++) {
+            // Set the arguments for thread_function
+            arg[i].id = i;
+            arg[i].subarray = array + (num_data/NUM_THREADS)*i;
+            arg[i].subarray_len = (num_data/NUM_THREADS);
+            if (i == NUM_THREADS - 1) {
+                arg[i].subarray_len += num_data%NUM_THREADS;
+            }
+            arg[i].m_estimated = *m_estimated;
+            arg[i].b_estimated = *b_estimated;
+            arg[i].m_gradient = 0.0;
+            arg[i].b_gradient = 0.0;
+
+            // pthread_create arguments:
+            // 1. Pointer to pthread_t variable to store thread ID.
+            // 2. Thread attributes (NULL for default).
+            // 3. The function the thread will execute.
+            // 4. The argument to pass to the thread function.
+            //struct thread_arg *arg;
+            rc = pthread_create(&threads[i], 
+                    NULL,
+                    thread_sum,
+                    (void *)(arg + i));
+            if (rc) {
+                printf("ERROR; return code from pthread_create() is %d\n", rc);
+                exit(-1);
+            }
+        }
+
+
+        // join the threads
+        for (int i = 0; i < NUM_THREADS; i++) {
+            // pthread_join arguments:
+            // 1. The thread ID to wait for.
+            // 2. A pointer to store the return value from the thread function.
+            rc = pthread_join(threads[i], &ret_val);
+            if (rc) {
+                printf("ERROR; return code from pthread_join() is %d\n", rc);
+                exit(-1);
+            }
+            struct thread_arg *ret_;
+            ret_ = (struct thread_arg *) ret_val;
+            //
+            // Average the gradients
+            m_gradient += (ret_->m_gradient)/num_data;
+            b_gradient += (ret_->b_gradient)/num_data;
+
+        }
+
+        // Update parameters
+        *m_estimated -= learning_rate * m_gradient;
+        *b_estimated -= learning_rate * b_gradient;
+
+    if ((epoch + 1) % (epochs/3) == 0 || epoch == 0) {
+        double mse = 0.0;
+        for (int i = 0; i < num_data; i++) {
+            double y_predicted = (*m_estimated) * array[i].x 
+                                      + (*b_estimated);
+            mse += pow(array[i].y - y_predicted, 2);
+        }
+        mse /= num_data;
+        printf("Epoch %d/%d: m_est = %.4f, b_est = %.4f, MSE = %.4f\n",
+               epoch + 1, epochs, *m_estimated, *b_estimated, mse);
+    }
     }
 }
