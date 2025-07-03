@@ -63,7 +63,8 @@ void initialize_data(int num_data, DataPoint *data_array, double m_true, double 
 
 
 // Function to perform gradient descent
-void gradient_descent(int num_data, double learning_rate, int epochs, double *m_estimated, double *b_estimated, DataPoint *data_array) {
+void gradient_descent(int num_data, double learning_rate, int epochs, 
+    double *m_estimated, double *b_estimated, DataPoint *data_array) {
     // Initialize parameters
     *m_estimated = 0.0;
     *b_estimated = 0.0;

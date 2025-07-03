@@ -80,3 +80,6 @@ git checkout experiment -- app.js # then copy the version of app.js
 * https://es.wikipedia.org/wiki/POSIX
 * https://en.wikipedia.org/wiki/Bubble_sort
 * https://en.wikipedia.org/wiki/Quicksort#/media/File:Sorting_quicksort_anim.gif
+
+2025-07-01
+* https://es.wikipedia.org/wiki/Condici%C3%B3n_de_carrera
