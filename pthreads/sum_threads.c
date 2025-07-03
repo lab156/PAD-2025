@@ -43,19 +43,19 @@ int main() {
     printf("Main: Creating %d threads.\n", NUM_THREADS);
 
     for (int i = 0; i < NUM_THREADS; i++) {
-        // pthread_create arguments:
-        // 1. Pointer to pthread_t variable to store thread ID.
-        // 2. Thread attributes (NULL for default).
-        // 3. The function the thread will execute.
-        // 4. The argument to pass to the thread function.
-        //struct thread_arg *arg;
+        // Set the arguments for thread_function
         arg[i].id = i;
         arg[i].subarray = array + 10*i;
         arg[i].subarray_len = 10;
         arg[i].total = 0;
 
         printf("Comenzando thread %d \n", i);
-        // ahora creamos los hilos
+        // pthread_create arguments:
+        // 1. Pointer to pthread_t variable to store thread ID.
+        // 2. Thread attributes (NULL for default).
+        // 3. The function the thread will execute.
+        // 4. The argument to pass to the thread function.
+        //struct thread_arg *arg;
         rc = pthread_create(&threads[i], 
                 NULL,
                 thread_function,
