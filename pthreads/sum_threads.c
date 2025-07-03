@@ -29,14 +29,15 @@ void *thread_function(void *arg) {
 }
 
 int main() {
-    int NUM_THREADS = 5;
+    int NUM_THREADS = 13;
     pthread_t threads[NUM_THREADS];
     int rc; // sirve para revisar si el hilo se creo directamente
     void *ret_val;
     struct thread_arg arg[NUM_THREADS];
 
-    double array[50];
-    for (int i = 0; i<50; i++) {
+    int array_length = 37012;
+    double array[array_length];
+    for (int i = 0; i<array_length; i++) {
         array[i] = i+1;
     }
 
@@ -45,8 +46,11 @@ int main() {
     for (int i = 0; i < NUM_THREADS; i++) {
         // Set the arguments for thread_function
         arg[i].id = i;
-        arg[i].subarray = array + 10*i;
-        arg[i].subarray_len = 10;
+        arg[i].subarray = array + (array_length/NUM_THREADS)*i;
+        arg[i].subarray_len = (array_length/NUM_THREADS);
+        if (i == NUM_THREADS - 1) {
+            arg[i].subarray_len += array_length%NUM_THREADS;
+        }
         arg[i].total = 0;
 
         printf("Comenzando thread %d \n", i);
@@ -91,7 +95,9 @@ int main() {
                 ret_->id, ret_->total);
     }
 
-    printf("Main: All threads have completed. The total is %f Exiting.\n",
+    printf("Main: All threads have completed. The total is %f\n",
             grand_total);
+    printf("It should be:                                  %d\n",
+           (array_length*(array_length + 1))/2);
     return 0;
 }
