@@ -4,20 +4,24 @@ LFLAGS = -L. -lreg
 
 TARGET1 = ex
 TARGET2 = basic
-TARGET2 = mute
+TARGET3 = mute
+TARGET4 = sum
 
 
-all: $(TARGET1) $(TARGET2) $(TARGET3)
+all: $(TARGET1) $(TARGET2) $(TARGET3) $(TARGET4) 
 
 
 $(TARGET1): pthread_example.c
-	$(CC) pthread_example.c -o $(TARGET1) $(CFLAGS) 
+	$(CC) $< -o $@ $(CFLAGS)
 
 $(TARGET2): basic_threads.c
-	$(CC) basic_threads.c -o $(TARGET2) $(CFLAGS)
+	$(CC) $< -o $@ $(CFLAGS)
 
 $(TARGET3): mutex_example.c 
-	$(CC) mutex_example.c -o $(TARGET3) $(CFLAGS)
+	$(CC) $< -o $@ $(CFLAGS)
+
+$(TARGET4): sum_threads.c
+	$(CC) $< -o $@ $(CFLAGS)
 
 clean:
-	rm -f $(TARGET1) $(TARGET2) $(TARGET3)
+	rm -f $(TARGET1) $(TARGET2) $(TARGET3) $(TARGET4)
