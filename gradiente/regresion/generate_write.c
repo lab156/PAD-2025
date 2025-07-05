@@ -8,7 +8,7 @@
 int main(int argc, char *argv[]) {
 
     DataPoint *data_array;
-    int num_data = 1000000;
+    int num_data = 10000000;
 
     data_array = (DataPoint *)malloc(num_data * sizeof(DataPoint));
 

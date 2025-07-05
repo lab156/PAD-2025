@@ -95,7 +95,7 @@ void gradient_descent(int num_data, double learning_rate, int epochs,
         *m_estimated -= learning_rate * m_gradient;
         *b_estimated -= learning_rate * b_gradient;
 
-        if ((epoch + 1) % (epochs/3) == 0 || epoch == 0) {
+        if ((epoch + 1) % (epochs/2) == 0 || epoch == 0) {
             double mse = 0.0;
             for (int i = 0; i < num_data; i++) {
                 double y_predicted = (*m_estimated) * data_array[i].x 
@@ -117,7 +117,7 @@ struct thread_arg{
    int subarray_len; // longitud del arreglo subarray
    double m_estimated;
    double b_estimated;
-   double m_gradient;
+   double m_gradient;   // = 0 por que son salida
    double b_gradient;
 };
 
@@ -142,7 +142,7 @@ void *thread_sum(void *arg) {
 
 void thread_gradient_descent(int num_data, double learning_rate, int epochs, 
     double *m_estimated, double *b_estimated, DataPoint *array) {
-    int NUM_THREADS = 16;
+    int NUM_THREADS = 14;
     printf("\nStarting Thread Gradient Descent with %d threads\n", 
             NUM_THREADS);
     // Initialize parameters
@@ -189,7 +189,7 @@ void thread_gradient_descent(int num_data, double learning_rate, int epochs,
         }
 
 
-        // join the threads
+        // JOIN THE THREADS
         for (int i = 0; i < NUM_THREADS; i++) {
             // pthread_join arguments:
             // 1. The thread ID to wait for.
@@ -212,7 +212,7 @@ void thread_gradient_descent(int num_data, double learning_rate, int epochs,
         *m_estimated -= learning_rate * m_gradient;
         *b_estimated -= learning_rate * b_gradient;
 
-    if ((epoch + 1) % (epochs/3) == 0 || epoch == 0) {
+    if ((epoch + 1) % (epochs/2) == 0 || epoch == 0) {
         double mse = 0.0;
         for (int i = 0; i < num_data; i++) {
             double y_predicted = (*m_estimated) * array[i].x 
