@@ -83,3 +83,9 @@ git checkout experiment -- app.js # then copy the version of app.js
 
 2025-07-01
 * https://es.wikipedia.org/wiki/Condici%C3%B3n_de_carrera
+
+2025-07-07
+* https://fastapi.tiangolo.com/
+* https://github.com/projectdiscovery/httpx
+* https://docs.astral.sh/uv/getting-started/installation/#standalone-installer
+ 
