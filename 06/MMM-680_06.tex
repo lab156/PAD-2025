@@ -1,0 +1,202 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   TEMPLATE TO RUN A CLASS.TEX FILE WITHOUT THE REST OF    %
+%   CLASS FILES                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{general}
+\usepackage{minted}
+
+\title{El Administrador de Paquetes \texttt{uv}: Simplificando el Desarrollo Python}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section{Introducción}
+\subsection{¿Qué es uv y por qué entornos virtuales?}
+\frame
+{
+    \frametitle{Introducción a \texttt{uv}}
+    \framesubtitle{Un paso adelante en la gestión de paquetes Python}
+    \begin{itemize}
+        \item La herramienta \textbf{uv} es un instalador de paquetes que ofrece un rendimiento superior a \texttt{pip}.
+        \item Se describe como \textbf{entre 10 y 100 veces más rápido} que \texttt{pip}.
+        \item Su diseño prioriza la \textbf{facilidad de uso}.
+        \item Por defecto, \texttt{uv} \textbf{requiere} el uso de un entorno virtual para instalar paquetes.
+    \end{itemize}
+}
+
+\frame
+{
+    \frametitle{La Necesidad de Entornos Virtuales}
+    \framesubtitle{Resolviendo conflictos de dependencias}
+    \begin{itemize}
+        \item \textbf{Problema central}: En el desarrollo de aplicaciones Python, es común que diferentes proyectos requieran \textbf{versiones distintas} de los mismos paquetes, o incluso \textbf{versiones diferentes de Python}.
+        \item La instalación global de paquetes puede llevar a \textbf{conflictos de dependencias}, donde la actualización o instalación de un paquete para un proyecto rompe otro.
+        \item Los \textbf{entornos virtuales} son la solución a estos problemas.
+        \item Un entorno virtual es un \textbf{entorno independiente} creado sobre una instalación de Python existente.
+        \item Cada entorno virtual tiene su \textbf{propio conjunto de paquetes Python} instalados, aislados del sistema principal.
+        \item Son \textbf{desechables} y pueden ser fácilmente eliminados y recreados.
+    \end{itemize}
+}
+
+\section{Características y Ventajas}
+\subsection{Velocidad y Eficiencia}
+\frame
+{
+    \frametitle{Velocidad y Facilidad de Uso de \texttt{uv}}
+    \framesubtitle{Una alternativa eficiente a Pip}
+    \begin{itemize}
+        \item \texttt{uv} se destaca por su \textbf{notable velocidad}, siendo significativamente más rápido que \texttt{pip}.
+        \item Esto se traduce en \textbf{tiempos de resolución e instalación de paquetes mucho menores}, lo que mejora la productividad del desarrollador.
+        \item Su interfaz es \textbf{intuitiva y sencilla}, lo que facilita su adopción y uso diario.
+        \item A diferencia de \texttt{pip}, \texttt{uv} \textbf{obliga por defecto al uso de entornos virtuales}, lo que promueve una buena práctica de desarrollo desde el inicio.
+    \end{itemize}
+}
+
+\section{Instalación de \texttt{uv}}
+\subsection{Pasos para empezar a usar uv}
+\frame[containsverbatim]
+{
+    \frametitle{Cómo Instalar \texttt{uv}}
+    \framesubtitle{Múltiples opciones para diferentes sistemas operativos}
+    \begin{itemize}
+        \item Para \textbf{Linux o Mac}, use \texttt{curl}:
+            \begin{minted}{python}
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+    \end{minted}
+        \item Para \textbf{Mac}, también puede usar \texttt{Homebrew}:
+            \begin{minted}{python}
+        brew install uv
+    \end{minted}
+        \item Para \textbf{Windows}, use \texttt{powershell}:
+            \begin{minted}{python}
+        powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+    \end{minted}
+        \item Alternativamente, puede instalar \texttt{uv} con \texttt{pip} (si ya lo tiene):
+            \begin{minted}{python}
+        pip install uv
+    \end{minted}
+        \item Para \textbf{verificar} la instalación, ejecute:
+            \begin{minted}{python}
+        uv --version
+    \end{minted}
+        Lo que debería mostrar una salida como \texttt{uv 0.1.44}.
+    \end{itemize}
+}
+
+\section{Gestión de Entornos Virtuales con \texttt{uv}}
+\subsection{Creación, Activación y Uso}
+\frame[containsverbatim]
+{
+    \frametitle{Creación de Entornos Virtuales}
+    \framesubtitle{Configurando su entorno de proyecto}
+    \begin{itemize}
+        \item Primero, cree un directorio para su proyecto y navegue hasta él:
+            \begin{minted}{python}
+        mkdir my\_uv\_project
+        cd my\_uv\_project
+    \end{minted}
+        \item Para crear un entorno virtual con un nombre por defecto (\texttt{.venv}), ejecute:
+            \begin{minted}{python}
+        uv venv
+    \end{minted}
+        \item Para especificar un nombre para su entorno virtual (ej., \texttt{my\_env}):
+            \begin{minted}{python}
+         uv venv my\_env
+    \end{minted}
+        \item Para crear un entorno virtual con una \textbf{versión específica de python} (ej., Python 3.11), utilice la opción \texttt{--python}:
+            \begin{minted}{python}
+        uv venv 3rd\_env --python 3.11
+    \end{minted}
+        Esto requiere que la versión de python esté disponible en el sistema.
+    \end{itemize}
+}
+
+\frame[containsverbatim]
+{
+    \frametitle{Activación de un Entorno Virtual}
+    \framesubtitle{Habilitando su entorno de proyecto}
+    \begin{itemize}
+        \item Una vez creado el entorno virtual, debe \textbf{activarlo} para que sus paquetes estén disponibles y se aíslen del sistema.
+        \item Para activar el entorno (usando shells compatibles con POSIX como \texttt{sh}, \texttt{bash}, o \texttt{zsh}):
+            \begin{minted}{python}
+        source my\_env/bin/activate
+    \end{minted}
+        \item Si usa otro shell (ej., \texttt{cmd} en Windows), los scripts de activación serán diferentes (ej., \texttt{my\_env\textbackslash Scripts\textbackslash activate.bat}).
+        \item Para verificar que el entorno no contiene paquetes preinstalados, ejecute:
+            \begin{minted}{python}
+        uv pip list
+    \end{minted}
+        La salida no listará nada, confirmando el aislamiento.
+    \end{itemize}
+}
+
+\frame[containsverbatim]
+{
+    \frametitle{Instalación de Paquetes en el Entorno Virtual}
+    \framesubtitle{Gestionando dependencias de forma aislada}
+    \begin{itemize}
+        \item Una vez activado, puede instalar paquetes usando \texttt{uv pip install}:
+            \begin{minted}{python}
+        uv pip install pandas
+    \end{minted}
+        \item Para verificar la instalación de paquetes y sus dependencias, utilice:
+            \begin{minted}{python}
+        uv pip list
+    \end{minted}
+        \item Esto demuestra el \textbf{aislamiento}: si instala \texttt{pandas==2.2.2} en un entorno y \texttt{pandas==2.1.0} en otro, cada entorno mantendrá su versión específica sin conflictos.
+    \end{itemize}
+}
+
+\frame[containsverbatim]
+{
+    \frametitle{Cambio y Eliminación de Entornos Virtuales}
+    \framesubtitle{Flexibilidad en la gestión de proyectos}
+    \begin{itemize}
+        \item Para \textbf{desactivar} un entorno virtual:
+            \begin{minted}{python}
+        deactivate
+    \end{minted}
+        \item Para \textbf{cambiar} a otro entorno, primero desactive el actual y luego active el nuevo.
+        \item Los entornos virtuales se crean como \textbf{directorios regulares} dentro de su proyecto.
+        \item Para \textbf{eliminar} un entorno virtual, simplemente borre su directorio:
+            \begin{minted}{python}
+        rm -rf my\_second\_env
+    \end{minted}
+    \end{itemize}
+}
+
+\section{Limitaciones y Alternativas}
+\subsection{Consideraciones para proyectos complejos}
+\frame
+{
+    \frametitle{Limitaciones de \texttt{uv}}
+    \framesubtitle{¿Cuándo buscar otras herramientas?}
+    \begin{itemize}
+        \item \texttt{uv} está diseñado principalmente para gestionar \textbf{dependencias relacionadas con python}.
+        \item No está pensado para instalar \textbf{paquetes a nivel de sistema} (ej., \texttt{libpq-dev} para PostgreSQL).
+        \item \texttt{uv} \textbf{carece de capacidades de contenerización}.
+        \item \textbf{No tiene un mecanismo de caché} para reutilizar dependencias idénticas en diferentes entornos virtuales del mismo proyecto, lo que puede ser ineficiente en proyectos grandes.
+    \end{itemize}
+}
+
+\frame
+{
+    \frametitle{Conclusión}
+    \framesubtitle{Simplificando el flujo de trabajo python}
+    \begin{itemize}
+        \item \texttt{uv} es una herramienta \textbf{rápida y fácil de usar} para la gestión de dependencias y entornos virtuales en python.
+        \item Los entornos virtuales son \textbf{esenciales} para evitar conflictos y asegurar la consistencia entre proyectos.
+        \item Para proyectos más grandes o aquellos que requieren gestión de dependencias a nivel de sistema o capacidades de contenerización, herramientas como \textbf{Earthly} pueden ser una solución más completa.
+        \item Earthly ofrece características similares a Docker, como \textbf{contenerización, caché} y la capacidad de instalar \textbf{dependencias a nivel de sistema} junto con las de python, optimizando el proceso de construcción.
+    \end{itemize}
+}
+
+\end{document}
