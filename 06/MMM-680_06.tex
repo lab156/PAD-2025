@@ -27,8 +27,8 @@
     \begin{itemize}
         \item La herramienta \textbf{uv} es un instalador de paquetes que ofrece un rendimiento superior a \texttt{pip}.
         \item Se describe como \textbf{entre 10 y 100 veces más rápido} que \texttt{pip}.
-        \item Su diseño prioriza la \textbf{facilidad de uso}.
-        \item Por defecto, \texttt{uv} \textbf{requiere} el uso de un entorno virtual para instalar paquetes.
+        \item Su diseño prioriza la \textbf{facilidad de uso} y está escrito en rust.
+        \item Usa mucho el concepto de  \textbf{entorno virtual} para instalar paquetes.
     \end{itemize}
 }
 
@@ -69,15 +69,15 @@
     \begin{itemize}
         \item Para \textbf{Linux o Mac}, use \texttt{curl}:
             \begin{minted}{python}
-        curl -LsSf https://astral.sh/uv/install.sh | sh
+curl -LsSf https://astral.sh/uv/install.sh | sh
     \end{minted}
-        \item Para \textbf{Mac}, también puede usar \texttt{Homebrew}:
-            \begin{minted}{python}
-        brew install uv
+\item Para \textsc{Ubuntu}, también puede usar \texttt{Homebrew}:
+    \begin{minted}{bash}
+sudo snap install astral-uv --classic
     \end{minted}
         \item Para \textbf{Windows}, use \texttt{powershell}:
             \begin{minted}{python}
-        powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
     \end{minted}
         \item Alternativamente, puede instalar \texttt{uv} con \texttt{pip} (si ya lo tiene):
             \begin{minted}{python}
@@ -87,7 +87,7 @@
             \begin{minted}{python}
         uv --version
     \end{minted}
-        Lo que debería mostrar una salida como \texttt{uv 0.1.44}.
+        Lo que debería mostrar una salida como \texttt{uv 0.5.44}.
     \end{itemize}
 }
 
@@ -99,21 +99,21 @@
     \framesubtitle{Configurando su entorno de proyecto}
     \begin{itemize}
         \item Primero, cree un directorio para su proyecto y navegue hasta él:
-            \begin{minted}{python}
-        mkdir my\_uv\_project
-        cd my\_uv\_project
+            \begin{minted}{bash}
+        mkdir my_uv_project
+        cd my_uv_project
     \end{minted}
         \item Para crear un entorno virtual con un nombre por defecto (\texttt{.venv}), ejecute:
-            \begin{minted}{python}
+            \begin{minted}{bash}
         uv venv
     \end{minted}
         \item Para especificar un nombre para su entorno virtual (ej., \texttt{my\_env}):
-            \begin{minted}{python}
-         uv venv my\_env
+            \begin{minted}{bash}
+         uv venv my_env
     \end{minted}
         \item Para crear un entorno virtual con una \textbf{versión específica de python} (ej., Python 3.11), utilice la opción \texttt{--python}:
-            \begin{minted}{python}
-        uv venv 3rd\_env --python 3.11
+            \begin{minted}{bash}
+        uv venv 3rd_env --python 3.11
     \end{minted}
         Esto requiere que la versión de python esté disponible en el sistema.
     \end{itemize}
@@ -168,7 +168,7 @@
         \item Los entornos virtuales se crean como \textbf{directorios regulares} dentro de su proyecto.
         \item Para \textbf{eliminar} un entorno virtual, simplemente borre su directorio:
             \begin{minted}{python}
-        rm -rf my\_second\_env
+        rm -rf my_second_env
     \end{minted}
     \end{itemize}
 }
@@ -194,8 +194,6 @@
     \begin{itemize}
         \item \texttt{uv} es una herramienta \textbf{rápida y fácil de usar} para la gestión de dependencias y entornos virtuales en python.
         \item Los entornos virtuales son \textbf{esenciales} para evitar conflictos y asegurar la consistencia entre proyectos.
-        \item Para proyectos más grandes o aquellos que requieren gestión de dependencias a nivel de sistema o capacidades de contenerización, herramientas como \textbf{Earthly} pueden ser una solución más completa.
-        \item Earthly ofrece características similares a Docker, como \textbf{contenerización, caché} y la capacidad de instalar \textbf{dependencias a nivel de sistema} junto con las de python, optimizando el proceso de construcción.
     \end{itemize}
 }
 
