@@ -1,5 +1,9 @@
+import numpy as np
+
+
 def main():
-    print("Hello from proyectouno!")
+    num = np.random.uniform()
+    print(num)
 
 
 if __name__ == "__main__":

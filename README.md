@@ -19,6 +19,15 @@
 
 * Modificar el archivo `mutex_example.c` para que escriba a un archivo de texto el valor de de la variable `log_cnt`. 
      
+     
+ **Avance del Proyecto**
+
+| Lunes | Martes | Miercoles | Jueves |
+|:-----:|:------:|:---------:|:------:|
+| Aldo  | Daniel |           |        |
+| David |        |           |        |
+
+
 -------------
 
 ### Apuntes de la clase
