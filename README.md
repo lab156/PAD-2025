@@ -22,10 +22,11 @@
      
  **Avance del Proyecto**
 
-| Lunes | Martes | Miercoles | Jueves |
-|:-----:|:------:|:---------:|:------:|
-| Aldo  | Daniel |           |        |
-| David |        |           |        |
+| Lunes  | Martes | Miercoles | Jueves |
+|:------:|:------:|:---------:|:------:|
+|  Aldo  | David  |  Gustavo  |        |
+| Daniel | Sheila |  Lesman   |        |
+| Miguel | Kilver |           |        |
 
 
 -------------
@@ -98,3 +99,9 @@ git checkout experiment -- app.js # then copy the version of app.js
 * https://github.com/projectdiscovery/httpx
 * https://docs.astral.sh/uv/getting-started/installation/#standalone-installer
  
+ 
+2025-07-09
+* Search 'numpy polyfit get mse'
+* https://docs.astral.sh/uv/guides/integration/jupyter/
+* https://colab.research.google.com/
+* https://marimo.io/
