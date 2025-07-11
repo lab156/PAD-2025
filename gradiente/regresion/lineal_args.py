@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import sys
+import thread_reg as th
 
 
 def main(filename):
@@ -9,12 +10,14 @@ def main(filename):
         # Esta funcion entrega un DataFrame
         DF = pd.read_csv(fobj)
     # Perform linear regression of degree 1
-    X_arr = DF.iloc[:, 0]  # Leer todas las filas de la 1ra columna
-    y_arr = DF.iloc[:, 1]
-    coeffs = np.polyfit(X_arr, y_arr, 1)
+    # X_arr = DF.iloc[:, 0]  # Leer todas las filas de la 1ra columna
+    # y_arr = DF.iloc[:, 1]
+    # coeffs = np.polyfit(X_arr, y_arr, 1)
     # TODO como encontrar el MSE??
 
-    print(f"Coefficients are m={coeffs[0] + 1} and b={coeffs[1]}")
+    th.thread_gradient_descent(len(DF), 0.1, 1000, DF.to_numpy().tolist())
+
+    # print(f"Coefficients are m={coeffs[0] + 1} and b={coeffs[1]}")
 
 
 if __name__ == "__main__":
