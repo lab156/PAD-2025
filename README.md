@@ -105,3 +105,8 @@ git checkout experiment -- app.js # then copy the version of app.js
 * https://docs.astral.sh/uv/guides/integration/jupyter/
 * https://colab.research.google.com/
 * https://marimo.io/
+
+2025-07-10
+* https://docs.python.org/3/library/multiprocessing.html
+* https://numpy.org/doc/stable/reference/generated/numpy.polyfit.html
+* https://pytorch.org/

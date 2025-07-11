@@ -11,6 +11,7 @@ def thread_sum(subarray, m_estimated, b_estimated, result):
         m_gradient += point[0] * (point[1] - y_predicted)
 
     result.append((-2.0 * m_gradient, -2.0 * b_gradient))
+    # Alternativa: return (-2.0 * m_gradient, -2.0 * b_gradient)
 
 
 def thread_gradient_descent(num_data, learning_rate,
@@ -37,6 +38,7 @@ def thread_gradient_descent(num_data, learning_rate,
 
             subarray = data_array[start:end]
 
+            # Creando los hilos
             thread = threading.Thread(target=thread_sum,
                                       args=(subarray, m_estimated,
                                             b_estimated, results))
@@ -57,6 +59,8 @@ def thread_gradient_descent(num_data, learning_rate,
         b_estimated -= learning_rate * b_gradient
 
         if (epoch + 1) % (epochs // 2) == 0 or epoch == 0:
+            # Error medio cuadratico
+            # Meand Square Error
             mse = 0.0
             for i in range(num_data):
                 y_predicted = m_estimated * data_array[i][0]\
