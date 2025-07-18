@@ -110,3 +110,9 @@ git checkout experiment -- app.js # then copy the version of app.js
 * https://docs.python.org/3/library/multiprocessing.html
 * https://numpy.org/doc/stable/reference/generated/numpy.polyfit.html
 * https://pytorch.org/
+
+2025-07-17
+* https://stackoverflow.com/questions/140061/when-to-use-dynamic-vs-static-libraries
+* https://docs.python.org/3/library/subprocess.html
+* https://www.openmp.org/
+
