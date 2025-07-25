@@ -1,0 +1,121 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   TEMPLATE TO RUN A CLASS.TEX FILE WITHOUT THE REST OF    %
+%   CLASS FILES                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{hyperref} % Para enlazar las citas
+\usepackage{minted}
+
+\usetheme{Madrid} % Un tema común y elegante para Beamer
+
+\title{Programación Paralela con OpenMP}
+\subtitle{Una Introducción y Uso en C para Computación Científica}
+
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}{¿Qué es OpenMP?}
+    \begin{itemize}
+        \item OpenMP (Open Multi-Processing) es un \textbf{estándar de programación paralela} que permite la computación simultánea de muchas tareas o procesos.
+        \item Se implementa mediante \textbf{directivas de compilador o pragmas} para lenguajes como C, C++ y Fortran, enfocándose en la programación de memoria compartida.
+        \item Su objetivo principal es acelerar el software dividiendo el trabajo en múltiples partes del procesador de un ordenador, haciéndolo más rápido y eficiente.
+        \item Utiliza un modelo de memoria compartida, donde los datos pueden ser accesibles por todos los hilos (compartidos) o solo por el hilo que los posee (privados).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Uso de OpenMP en Computación Científica}
+    \begin{itemize}
+        \item Se utiliza típicamente para \textbf{paralelizar bucles (loops)}.
+        \item Es ideal para aprovechar la arquitectura multinúcleo de los procesadores modernos (por ejemplo, CPUs y GPUs), donde cada núcleo es independiente y puede acceder a la misma memoria concurrentemente.
+        \item En la computación científica y las simulaciones, la \textbf{paralelización de programas secuenciales} es muy común.
+        \item Las aplicaciones que muestran \textbf{paralelismo grueso} (coarse-grained parallelism), donde las subtareas no necesitan comunicarse muy a menudo, son más fáciles de paralelizar con OpenMP.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Uso Básico en C: Regiones Paralelas}
+    \begin{itemize}
+        \item \textbf{Incluir la cabecera:} Debes incluir el archivo de cabecera de OpenMP:
+        \begin{minted}{c}
+            #include <omp.h>
+        \end{minted}
+    \item Especificar la región paralela: Usa la directiva \texttt{\#pragma omp parallel} para definir un bloque de código que se ejecutará en paralelo:
+        \begin{minted}{c}
+        #pragma omp parallel
+        {
+            // Código de la región paralela
+        }
+    \end{minted}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[containsverbatim]
+    \begin{itemize}
+        \item Funcionamiento: Cuando el compilador encuentra una región paralela, el hilo original (llamado hilo maestro, con ID 0) "forkea" (crea) hilos adicionales. Todo el código dentro de la región paralela es ejecutado concurrentemente por todos los hilos.
+        \item Finalización: Una vez que la región paralela termina, todos los hilos se fusionan de nuevo en el hilo maestro.
+        \item Obtener el ID del hilo: Puedes usar \texttt{omp\_get\_thread\_num()} para obtener el número del hilo actual.
+            \begin{minted}{c}
+        #pragma omp parallel
+        {
+    printf("Hola Mundo... desde el hilo = %d\n",
+           omp_get_thread_num());
+        }
+    \end{minted}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Uso Básico en C: Control y Compilación}
+    \begin{itemize}
+        \item Establecer el número de hilos: Puedes definir cuántos hilos se ejecutarán usando una variable de entorno:
+        \begin{minted}{c}
+        export OMP_NUM_THREADS=5
+        \end{minted}
+        En este caso, se crearán 5 hilos.
+        \item Otra forma de especificar número de hilos:
+            \begin{minted}{c}
+    #pragma omp parallel for num_threads(4)
+    for (int i = 1; i <= 10; i++) {
+        int tid = omp_get_thread_num();
+    \end{minted}
+        \item Nota importante sobre el orden: El orden de ejecución de los hilos no está garantizado y puede variar en cada ejecución del programa.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}[containsverbatim]{Variable Privadas y Compartidas}
+    \begin{itemize}
+        \item Las variables \textbf{private} son exclusivas de cada hilo, cada hilo tiene su propia copia. 
+            \begin{minted}{c}
+int th_id, nthreads;
+#pragma omp parallel private(th_id)
+  {
+    th_id = omp_get_thread_num();
+    printf("Hello World from thread %d\n", th_id);
+  }
+    \end{minted}
+\item Las variables \textbf{shared}, son visibles dentro de todos los hilos y son el comportamiento predeterminado. Hay peligro de \color{red}{Race Conditions}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Recetas Útiles}
+    \begin{itemize}
+        \item Reductions: https://theartofhpc.com/pcse/omp-reduction.html
+        \item Master: https://hpc-tutorials.llnl.gov/openmp/master\_directive/
+        \item Directives: https://theartofhpc.com/pcse/omp-basics.html\#Codeandexecutionstructure
+        \item 
+    \end{itemize}
+\end{frame}
+
+\end{document}
+

@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <pthread.h>
+#include <omp.h>
 
 //cambio sin importancia
 double random_double() {
@@ -223,5 +224,52 @@ void thread_gradient_descent(int num_data, double learning_rate, int epochs,
         printf("Epoch %d/%d: m_est = %.4f, b_est = %.4f, MSE = %.4f\n",
                epoch + 1, epochs, *m_estimated, *b_estimated, mse);
     }
+    }
+}
+
+
+void omp_gradient_descent(int num_data, double learning_rate, int epochs, 
+    double *m_estimated, double *b_estimated, DataPoint *data_array) {
+    printf("\nStarting Gradient Descent...\n");
+    // Initialize parameters
+    *m_estimated = 0.0;
+    *b_estimated = 0.0;
+
+    for (int epoch = 0; epoch < epochs; epoch++) {
+        double m_gradient = 0.0;
+        double b_gradient = 0.0;
+
+        #pragma omp parallel for reduction(+:m_gradient, b_gradient)
+        for (int i = 0; i < num_data; i++) {
+            double x_i = data_array[i].x;
+            double y_i = data_array[i].y;
+            double y_predicted = (*m_estimated) * x_i + (*b_estimated);
+
+            // Partial derivatives of the Mean Squared Error cost function
+            // d(MSE)/dm = -2/N * sum(x_i * (y_i - y_predicted))
+            // d(MSE)/db = -2/N * sum(y_i - y_predicted)
+            m_gradient += -2 * x_i * (y_i - y_predicted);
+            b_gradient += -2 * (y_i - y_predicted);
+        }
+
+        // Average the gradients
+        m_gradient /= num_data;
+        b_gradient /= num_data;
+
+        // Update parameters
+        *m_estimated -= learning_rate * m_gradient;
+        *b_estimated -= learning_rate * b_gradient;
+
+        if ((epoch + 1) % (epochs/2) == 0 || epoch == 0) {
+            double mse = 0.0;
+            for (int i = 0; i < num_data; i++) {
+                double y_predicted = (*m_estimated) * data_array[i].x 
+                                          + (*b_estimated);
+                mse += pow(data_array[i].y - y_predicted, 2);
+            }
+            mse /= num_data;
+            printf("Epoch %d/%d: m_est = %.4f, b_est = %.4f, MSE = %.4f\n",
+                   epoch + 1, epochs, *m_estimated, *b_estimated, mse);
+        }
     }
 }

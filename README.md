@@ -29,6 +29,13 @@
 | Miguel | Kilver |           |        |
 
 
+Tarea 4
+
+* Usar openMP para paralelizar el algoritmo del descenso por gradiente para regresion lineal.
+* Llamar la funcion `lineal_arg` (con un argumento) desde python usando la libreria `subprocess`.
+* Usando la libreria `ctypes` 
+
+
 -------------
 
 ### Apuntes de la clase

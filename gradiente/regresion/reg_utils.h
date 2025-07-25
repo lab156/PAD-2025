@@ -28,3 +28,6 @@ struct thread_arg{
 };
 
 void thread_gradient_descent(int num_data, double learning_rate, int epochs, double *m_estimated, double *b_estimated, DataPoint *data_array) ;
+
+void omp_gradient_descent(int num_data, double learning_rate, int epochs, 
+    double *m_estimated, double *b_estimated, DataPoint *data_array);

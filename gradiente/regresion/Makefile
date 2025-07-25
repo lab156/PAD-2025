@@ -19,7 +19,7 @@ LIBFILES = reg_utils.h reg_utils.c
 all: $(TARGET3) $(TARGET1) $(TARGET2)  $(TARGET4) $(TARGET5) $(TARGET6)
 
 $(TARGET3): $(LIBFILES)
-	$(CC) -c reg_utils.c -o reg_utils.o
+	$(CC) -c reg_utils.c -o reg_utils.o -fopenmp
 	ar -rcs $(TARGET3) reg_utils.o
 
 $(TARGET1): lineal.c 
@@ -32,7 +32,7 @@ $(TARGET4): $(TARGET4).c
 	$(CC) $(TARGET4).c $(LFLAGS) -o $(TARGET4) $(CFLAGS)
 
 $(TARGET5): $(TARGET5).c
-	$(CC) $(TARGET5).c $(LFLAGS) -o $(TARGET5) $(CFLAGS)
+	$(CC) $(TARGET5).c $(LFLAGS) -o $(TARGET5) $(CFLAGS) -fopenmp
 
 $(TARGET6): $(TARGET6).c
 	$(CC) $(TARGET6).c $(LFLAGS) -o $(TARGET6) $(CFLAGS)

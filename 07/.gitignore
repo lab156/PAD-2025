@@ -1,0 +1,10 @@
+*.fls
+*.log
+*.aux
+*.nav
+*.out
+*.snm
+*.toc
+MMM-680_07.fdb_latexmk
+MMM-680_07.tex.latexmain
+minted/*
