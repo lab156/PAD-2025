@@ -123,3 +123,11 @@ git checkout experiment -- app.js # then copy the version of app.js
 * https://docs.python.org/3/library/subprocess.html
 * https://www.openmp.org/
 
+2025-07-28
+* https://www.docker.com/
+* https://docs.docker.com/engine/install/ubuntu/
+* https://docs.docker.com/desktop/setup/install/windows-install/
+
+2025-07-29
+* https://hub.docker.com/r/rancher/cowsay
+* https://hub.docker.com/r/alpine/git

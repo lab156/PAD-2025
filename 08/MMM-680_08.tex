@@ -1,0 +1,216 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   TEMPLATE TO RUN A CLASS.TEX FILE WITHOUT THE REST OF    %
+%   CLASS FILES                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[aspectratio=169]{beamer} % Puedes ajustar el aspectratio a 43 si lo prefieres
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{minted} % Para resaltar código y comandos
+\usetheme{Madrid} % Un tema común y limpio, puedes elegir otro
+
+% Configuración para minted
+\setminted{breaklines, breakanywhere, fontsize=\small}
+
+\title{Introducción a Docker Containers}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}{¿Qué es Docker?}
+    \begin{itemize}
+        \item Docker es un proyecto de código abierto pero de una compañia privada que \textbf{automatiza el despliegue de aplicaciones de software dentro de contenedores}.
+        \item Proporciona una capa adicional de abstracción de \textbf{virtualización a nivel de SO} en Linux.
+        \item En palabras más sencillas, Docker es una herramienta que permite a desarrolladores, administradores de sistemas, etc., \textbf{desplegar fácilmente sus aplicaciones en un entorno aislado (llamado \textit{contenedores})} para que se ejecuten en el sistema operativo anfitrión, es decir, Linux.
+        \item El beneficio clave de Docker es que permite a los usuarios \textbf{empaquetar una aplicación con todas sus dependencias en una unidad estandarizada} para el desarrollo de software.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{¿Qué son los Contenedores? (\textit{Containers})}
+    \begin{itemize}
+        \item Antes se usaban mucho las Máquinas Virtuales.
+        \item Las VMs ejecutan aplicaciones dentro de un \textbf{sistema operativo invitado} que se ejecuta en hardware virtualizado, lo que conlleva una sobrecarga computacional sustancial.
+        \item Los \textbf{contenedores} son diferentes: usan los mecanismos de bajo nivel del sistema operativo anfitrión para proporcionar la mayor parte del aislamiento de las máquinas virtuales, pero \textbf{con consumen menos recursos}.
+        \item Ofrecen un \textbf{mecanismo de empaquetado lógico} en el que las aplicaciones pueden ser abstraídas del entorno en el que realmente se ejecutan.
+        \item Este desacoplamiento permite que las \textbf{aplicaciones basadas en contenedores sean portatiles}.
+        \item Esto permite crear \textbf{entornos predecibles que están aislados} del resto de las aplicaciones y pueden ejecutarse en cualquier lugar.
+        \item También ofrecen control más granular de los recursos.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Terminología Básica de Docker}
+    La jerga específica de Docker puede ser confusa al principio. Aquí algunos términos clave:
+    \begin{itemize}
+        \item \textbf{Imágenes (\textit{Images})}: Son los planos de nuestra aplicación que forman la base de los contenedores. Se descargan del Docker registry (ej. Docker Hub) usando \texttt{docker pull}.
+        \item \textbf{Contenedores (\textit{Containers})}: Se crean a partir de imágenes Docker y ejecutan la aplicación real. Se inician usando \texttt{docker run}.
+        \item \textbf{Docker Daemon}: El servicio en segundo plano que se ejecuta en el anfitrión y gestiona la construcción, ejecución y distribución de contenedores Docker. Es el proceso con el que interactúan los clientes.
+        \item \textbf{Docker Client}: La herramienta de línea de comandos que permite al usuario interactuar con el daemon. También pueden existir otros clientes con GUI.
+        \item \textbf{Docker Hub}: Un registro de imágenes Docker. Puedes pensarlo como un directorio de todas las imágenes Docker disponibles.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Instalación de Docker}
+    \begin{itemize}
+        \item Docker (la compañia) ha invertido significativamente en mejorar la experiencia de incorporación para sus usuarios en sistemas operativos como Mac, Linux y Windows, haciendo que su ejecución sea muy sencilla.
+        \item Después de la instalación, puedes verificar que Docker funciona correctamente ejecutando un comando simple:
+        \begin{minted}{bash}
+$ docker run hello-world
+        \end{minted}
+        \item Esto debería mostrar un mensaje de ``Hello from Docker", confirmando que tu instalación es correcta.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Uso Básico: Imágenes}
+    \begin{itemize}
+        \item Para obtener una nueva imagen Docker, puedes descargarla de un registro (como Docker Hub) o crear la tuya propia.
+        \item Existen decenas de miles de imágenes disponibles en Docker Hub.
+        \item  Use el comando \texttt{docker pull} para descargar una imagen de un registro a tu sistema.
+        \item Para ver una lista de todas las imágenes disponibles localmente en tu sistema, usa el comando \texttt{docker images}.
+    \end{itemize}
+    \vspace{0.5cm}
+    \textbf{Ejemplo: Descargar la imagen \texttt{busybox}}
+    \begin{minted}{bash}
+$ docker pull busybox
+# Dependiendo de tu instalación, podrías necesitar 'sudo' en Linux.
+    \end{minted}
+\end{frame}
+\begin{frame}[containsverbatim]{Uso Básico: Imágenes}
+    \textbf{Ejemplo: Listar imágenes locales}
+    \begin{minted}{bash}
+$ docker images
+REPOSITORY    TAG      IMAGE ID       CREATED        VIRTUAL SIZE
+busybox       latest   c51f86c28340   4 weeks ago    1.109 MB
+    \end{minted}
+    El \texttt{TAG} se refiere a una instantánea particular de la imagen y el \texttt{IMAGE ID} es su identificador único.
+\end{frame}
+
+\begin{frame}[containsverbatim]{Uso Básico: Contenedores (Parte 1)}
+    \begin{itemize}
+        \item Para ejecutar un contenedor basado en una imagen, se utiliza el comando \texttt{docker run}.
+    \end{itemize}
+    \vspace{0.5cm}
+    \textbf{Ejemplo: Ejecutar \texttt{busybox} sin comando explícito}
+    \begin{minted}{bash}
+$ docker run busybox
+$ # ¡No pasó nada visible! El contenedor se inició, ejecutó un comando vacío y salió.
+    \end{minted}
+    \vspace{0.5cm}
+    \textbf{Ejemplo: Ejecutar \texttt{busybox} con un comando}
+    \begin{minted}{bash}
+$ docker run busybox echo "hello from busybox"
+hello from busybox
+    \end{minted}
+    \begin{itemize}
+        \item El cliente de Docker ejecutó diligentemente el comando \texttt{echo} en el contenedor \texttt{busybox} y luego salió.
+        \item Note que los contenedores son mucho más rápidos que las maquinas virtuales.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Uso Básico: Contenedores (Parte 2)}
+    \begin{itemize}
+        \item El comando \texttt{docker ps} muestra todos los contenedores que se están ejecutando actualmente.
+        \item Para ver una lista de todos los contenedores que se han ejecutado (incluyendo los que ya salieron), usa \texttt{docker ps -a}.
+    \end{itemize}
+    \vspace{0.5cm}
+    \textbf{Ejemplo: \texttt{docker ps -a}}
+    \begin{minted}{bash}
+$ docker ps -a
+CONTAINER ID   IMAGE         COMMAND     CREATED         STATUS                 PORTS    NAMES
+305297d7a235   busybox       "uptime"    11 minutes ago  Exited (0) 11 minutes ago distracted_goldstine
+ff0a5c3750b9   busybox       "sh"        12 minutes ago  Exited (0) 12 minutes ago elated_ramanujan
+14e5bd11d164   hello-world   "/hello"    2 minutes ago   Exited (0) 2 minutes ago thirsty_euclid
+    \end{minted}
+\end{frame}
+\begin{frame}[containsverbatim]{Uso Básico: Contenedores (Parte 2)}
+
+    \textbf{Ejemplo: Ejecutar un contenedor en modo interactivo}
+    \begin{itemize}
+        \item Para ejecutar múltiples comandos en un contenedor, puedes usar las banderas \texttt{-it} con \texttt{docker run}.
+        \item Esto te conecta a una TTY interactiva en el contenedor.
+    \end{itemize}
+    \begin{minted}{bash}
+$ docker run -it busybox sh
+/ # ls
+bin dev etc home proc root sys tmp usr var
+/ # uptime
+05:45:21 up 5:58, 0 users, load average: 0.00, 0.01, 0.04
+/ # exit
+    \end{minted}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Uso Básico: Eliminación de Contenedores e Imágenes}
+    \begin{itemize}
+        \item Dejar contenedores inactivos consume espacio en disco, por lo que se recomienda limpiarlos una vez que hayas terminado con ellos.
+        \item Puedes eliminar contenedores usando \texttt{docker rm} y el ID del contenedor.
+    \end{itemize}
+    \vspace{0.5cm}
+    \textbf{Ejemplo: Eliminar contenedores por ID}
+    \begin{minted}{bash}
+$ docker rm 305297d7a235 ff0a5c3750b9
+305297d7a235
+ff0a5c3750b9
+    \end{minted}
+    \vspace{0.5cm}
+    \textbf{Ejemplo: Eliminar todos los contenedores con estado 'exited'}
+    \begin{minted}{bash}
+        $ docker container prune
+    \end{minted}
+
+    \vspace{0.5cm}
+
+    \textbf{Ejemplo: Eliminar imágenes que ya no necesitas}
+    \begin{minted}{bash}
+$ docker rmi yourusername/catnip
+    \end{minted}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Ejecutando un Sitio Web Estático con Docker}
+Es posible descargar y ejecutar una imagen directamente en una sola vez usando \texttt{docker run}.
+    \vspace{0.5cm}
+    \textbf{Ejemplo: Ejecutar un sitio web estático (imagen \texttt{prakhar1989/static-site})}
+    \begin{itemize}
+        \item \texttt{--rm} elimina automáticamente el contenedor al salir.
+        \item \texttt{-it} especifica una terminal interactiva para facilitar la detención con Ctrl+C.
+    \end{itemize}
+    \begin{minted}{bash}
+$ docker run --rm -it prakhar1989/static-site
+    \end{minted}
+    Si la imagen no existe localmente, el cliente la descargará primero y luego la ejecutará.
+\end{frame}
+
+\begin{frame}[containsverbatim]{Uso Básico de Contenedores}
+    \textbf{Ejemplo: Ejecutar en modo \textbf{desacoplado} y publicar puertos}
+    \begin{itemize}
+        \item \texttt{-d} desacopla tu terminal.
+        \item \texttt{-P} publica todos los puertos expuestos a puertos aleatorios del host.
+        \item \texttt{--name} asigna un nombre al contenedor.
+    \end{itemize}
+    \begin{minted}{bash}
+$ docker run -d -P --name static-site prakhar1989/static-site
+e61d12292d69556eabe2a44c16cbd54486b2527e2ce4f95438e504afb7b02810
+    \end{minted}
+    \vspace{0.2cm}
+    \textbf{Verificar los puertos publicados:}
+    \begin{minted}{bash}
+$ docker port static-site
+80/tcp -> 0.0.0.0:32769
+443/tcp -> 0.0.0.0:32768
+    \end{minted}
+    Ahora puedes abrir \textbf{\texttt{http://localhost:32769}} en tu navegador.
+\end{frame}
+
+\begin{frame}[containsverbatim]{Uso Básico: Contenedores (Parte 2)}
+    \textbf{Detener un contenedor desacoplado:}
+    \begin{minted}{bash}
+$ docker stop static-site
+static-site
+    \end{minted}
+    Desplegar esto en un servidor real solo requeriría instalar Docker y ejecutar el comando anterior.
+\end{frame}
+
+
+\end{document}
