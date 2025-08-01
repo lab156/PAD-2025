@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <lapacke.h>
 
-// compile with 
-// gcc solve.c -o solve -L/path/to/lapack/libs -llapacke -llapack -lblas
 
 int main() {
     int n = 3; // Matrix dimension
