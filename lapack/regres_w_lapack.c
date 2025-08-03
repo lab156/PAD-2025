@@ -6,20 +6,12 @@
 #include <sys/time.h>
 
 int main(int argc, char *argv[]) {
-    // Inputs: The path of a CSV file with (x,y) data for linear regression.
-    //
-    // Input matrix A (column-major)
-    //double a[6] = {12.0, 16.0, 18.0, 14.0, 16.0, 16.0};
-    //lapack_int m = 3, n = 2, nrhs = 1, lda = 3;
-
-    // Input matrix B (column-major)
-    //double b[3] = {14.0, 18.0, 16.0};
-    //lapack_int ldb = 3;
     struct timeval start_time, stop_time, elapsed_time;  // timers
 
     int num_data_points = 0;
     // At least one argument is necessary 
     if (argc < 1) return 1;
+
 
     // Open file in read mode 'r'
     FILE *file = fopen(argv[1], "r");
@@ -41,13 +33,18 @@ int main(int argc, char *argv[]) {
     // file.seek(0); en C++
     rewind(file);
 
+
     // Now that we know the number of lines
     // set the dimension for a b 
-    double a[2*num_data_points];
-    double b[num_data_points];
-    lapack_int m = num_data_points, n = 2, nrhs = 1, lda = 3;
+    double *a;
+    a = (double *)malloc(2*num_data_points * sizeof(double));
+    double *b;
+    b = (double *)malloc(num_data_points * sizeof(double));
+    lapack_int m = num_data_points, n = 2, nrhs = 1;
+    lapack_int lda = num_data_points;
     lapack_int ldb = num_data_points;
 
+    printf(" 'num_data_points' es: %d\n", num_data_points);
 
     char line[1024];
     char *str, *endPtr;
@@ -57,26 +54,35 @@ int main(int argc, char *argv[]) {
         // split the line on the comma and 
         // convert to double (x)
         a[file_ind] = strtod(
-                   strsep(&str, ","), 
+                  strsep(&str, ","), 
                    &endPtr);
         // convert to double (y)
         b[file_ind] = strtod(
                     strsep(&str, ","),
                     &endPtr);
-        //printf("El resultado es: \n");
-        //printf("x = %f  and y = %f", data_array[file_ind].x , data_array[file_ind].y);
-        //printf("\n");
         file_ind++;
     }
 
     // cerrar el archivo
     fclose(file);
+    //
 
     // fill the column of 1s
     for (int i=num_data_points; i< 2*num_data_points; i++)  a[i] = 1.0;
 
+    
+    // register BEGIN time 
+    gettimeofday(&start_time,NULL); // Unix timer
+
     // Call LAPACKE_dgels
     int info = LAPACKE_dgels(LAPACK_COL_MAJOR, 'N', m, n, nrhs, a, lda, b, ldb);
+    //
+    // Register END time subtract routine
+    gettimeofday(&stop_time,NULL);
+    timersub(&stop_time, &start_time, &elapsed_time); 
+
+    printf("\nTotal time was %f seconds.\n", 
+            elapsed_time.tv_sec+elapsed_time.tv_usec/1000000.0);
 
     if (info == 0) {
         // Print the solution
