@@ -17,7 +17,7 @@
 
 **Tarea 3**
 
-* Modificar el archivo `mutex_example.c` para que escriba a un archivo de texto el valor de de la variable `log_cnt`. 
+* Modificar el archivo `mutex_example.c` para que escriba a un archivo de texto el valor de la variable `log_cnt`. 
      
      
  **Avance del Proyecto**
@@ -31,9 +31,9 @@
 
 Tarea 4
 
-* Usar openMP para paralelizar el algoritmo del descenso por gradiente para regresion lineal.
-* Llamar la funcion `lineal_arg` (con un argumento) desde python usando la libreria `subprocess`.
-* Usando la libreria `ctypes` 
+* Usar openMP para paralelizar completamente el algoritmo del descenso por gradiente para regresion lineal. Puede modificar la librería `reg_utils.c` que ya cuenta con el computo del gradiente en paralelo mediante el *pragma parallel* y solo hace falta parelizar el computo del Error Cuadrado Medio (MSE).
+* Usando la libreria `ctypes`  de Python, leer un archivo tipo .CSV con datos de regresión y enviarlo a una funcion en C que encuentre la recta de regresión de los datos dados. 
+* Genere dos matrices aleatorias con componentes distribuidos uniformemente entre 0 y 100 de tamaño 300X200. Calcule el producto de la **traspuesta** de la primera por la segunda de forma que quede una matrix simétrica de 200X200. Finalmente encuentre e imprima los primeros 3 valores propios de mayor valor. Use funciones de la librería `LAPACK`.
 
 
 -------------
