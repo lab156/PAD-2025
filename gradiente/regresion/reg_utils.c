@@ -7,7 +7,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <pthread.h>
-#include <omp.h>
+//#include <omp.h>
 
 //cambio sin importancia
 double random_double() {
@@ -239,7 +239,7 @@ void omp_gradient_descent(int num_data, double learning_rate, int epochs,
         double m_gradient = 0.0;
         double b_gradient = 0.0;
 
-        #pragma omp parallel for reduction(+:m_gradient, b_gradient)
+        #pragma omp parallel for reduction(+:m_gradient, b_gradient) 
         for (int i = 0; i < num_data; i++) {
             double x_i = data_array[i].x;
             double y_i = data_array[i].y;

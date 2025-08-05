@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
     // Read characters one by one until the End Of the File (EOF)
-    char ch;
+    int ch;
     while ((ch = fgetc(file)) != EOF) {
         // Increment count if a newline character is found
         if (ch == '\n') {
@@ -78,10 +78,10 @@ int main(int argc, char *argv[]) {
     gettimeofday(&start_time,NULL); // Unix timer
                                     
     double estimated_slope, estimated_intercept;
-    gradient_descent(num_data_points, learning_rate, epochs, &estimated_slope, &estimated_intercept, data_array);
+    //gradient_descent(num_data_points, learning_rate, epochs, &estimated_slope, &estimated_intercept, data_array);
     //thread_gradient_descent(num_data_points, learning_rate, epochs, &estimated_slope, &estimated_intercept, data_array);
 
-    //omp_gradient_descent(num_data_points, learning_rate, epochs, &estimated_slope, &estimated_intercept, data_array);
+    omp_gradient_descent(num_data_points, learning_rate, epochs, &estimated_slope, &estimated_intercept, data_array);
 
 
     gettimeofday(&stop_time,NULL);
