@@ -31,7 +31,7 @@ $(TARGET2): mem_management.c
 $(TARGET4): $(TARGET4).c
 	$(CC) $(TARGET4).c $(LFLAGS) -o $(TARGET4) $(CFLAGS)
 
-$(TARGET5): $(TARGET5).c
+$(TARGET5): $(TARGET5).c $(LIBFILES)
 	$(CC) $(TARGET5).c $(LFLAGS) -o $(TARGET5) $(CFLAGS) 
 
 $(TARGET6): $(TARGET6).c

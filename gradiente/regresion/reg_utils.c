@@ -235,12 +235,12 @@ void omp_gradient_descent(int num_data, double learning_rate, int epochs,
     *m_estimated = 0.0;
     *b_estimated = 0.0;
 
+    printf(" OMP max threads: %d \n", omp_get_max_threads());
 
     for (int epoch = 0; epoch < epochs; epoch++) {
         double m_gradient = 0.0;
         double b_gradient = 0.0;
 
-        printf(" OMP max threads: %d \n", omp_get_max_threads());
 
         #pragma omp parallel for reduction(+:m_gradient, b_gradient) 
         for (int i = 0; i < num_data; i++) {
