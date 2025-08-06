@@ -136,3 +136,6 @@ git checkout experiment -- app.js # then copy the version of app.js
 
 2025-07-30
 * https://docs.sylabs.io/guides/3.5/user-guide/introduction.html
+
+2025-08-05
+* https://en.wikipedia.org/wiki/GNU_Scientific_Library
