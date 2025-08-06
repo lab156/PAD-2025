@@ -12,7 +12,6 @@ typedef struct {
 } DataPoint;
 
 void initialize_data(int num_data, DataPoint *data_array, double m_true, double b_true);
-#endif // REG_UTILS_H
 
 void gradient_descent(int num_data, double learning_rate, int epochs, double *m_estimated, double *b_estimated, DataPoint *data_array) ;
 
@@ -31,3 +30,5 @@ void thread_gradient_descent(int num_data, double learning_rate, int epochs, dou
 
 void omp_gradient_descent(int num_data, double learning_rate, int epochs, 
     double *m_estimated, double *b_estimated, DataPoint *data_array);
+
+#endif // REG_UTILS_H
