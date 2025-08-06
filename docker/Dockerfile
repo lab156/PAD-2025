@@ -2,6 +2,7 @@
 FROM alpine:latest
 
 # Install required packages
+# libc-dev incluye stdio.h
 RUN apk update && apk add --no-cache \
     bash \
     git \
@@ -18,6 +19,7 @@ RUN git clone https://github.com/lab156/PAD-2025.git /opt/PAD-2025
 
 
 # Compile some source file
+# Generar el ejecutable criba
 RUN cd /opt/PAD-2025/eratostenes && \
     make clean && \
     make
@@ -27,3 +29,6 @@ SHELL ["/bin/bash", "-c"]
 
 # Set the default command
 CMD ["bash"]
+
+# build with:
+# docker build --tag pad_alpine .

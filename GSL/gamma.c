@@ -6,6 +6,7 @@ int main() {
     double gamma_val = gsl_sf_gamma(x);
     printf("Gamma(%f) = %f\n", x, gamma_val);
 
+    // ln de Gamma viene incluido en el archivo .h
     double lngamma_val = gsl_sf_lngamma(x);
     printf("log(Gamma(%f)) = %f\n", x, lngamma_val);
 

@@ -35,6 +35,13 @@ Tarea 4
 * Usando la libreria `ctypes`  de Python, leer un archivo tipo .CSV con datos de regresión y enviarlo a una funcion en C que encuentre la recta de regresión de los datos dados. 
 * Genere dos matrices aleatorias con componentes distribuidos uniformemente entre 0 y 100 de tamaño 300X200. Calcule el producto de la **traspuesta** de la primera por la segunda de forma que quede una matrix simétrica de 200X200. Finalmente encuentre e imprima los primeros 3 valores propios de mayor valor. Use funciones de la librería `LAPACK`.
 
+ Segundo **Avance del Proyecto**
+
+| Miercoles | jueves | 
+|:---------:|:------:|
+|  Lesman   | David  | 
+|  Gustavo  | Sheila | 
+|  Miguel   | Kilver | 
 
 -------------
 
