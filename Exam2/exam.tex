@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{minted}
+\usepackage{amsmath}
+
+\title{EXAMEN DEL SEGUNDO PARCIAL}
+\author{ Programación de Alto Rendimiento }
+\begin{document}
+
+\maketitle
+
+\section*{Instrucciones:} A continuación se le presentan una serie de preguntas, léalas cuidadosamente, resuelvalos en forma clara y ordenada. Todas las respuestas deben de presentarse en formato .pdf y escritos en LaTeX; todo el código que presente debe se estar debidamente formateado usando el ambiente \texttt{minted}. No incluya archivos de código completos, puede solo presentar el código relevante a la solución a cada problema pero debe estar preparado para presentar el código completo y funcionando en caso de solicitarlo. Puede usar el código de este examen como plantilla.
+
+
+\section{Imagen Docker}
+Escriba un \texttt{Dockerfile} que genere una imagen de un contenedor docker con las siguientes Instrucciones (5 pts/cu):
+\begin{enumerate}
+    \item Instale la última versión de la distribución de linux \texttt{alpine}.
+    \item Instale los paquetes necesarios para compilar código \texttt{C} y descargar repositorios de \texttt{github.com} usando en manejador de paquetes de \texttt{alpine}
+    \item Clone el repositorio de la clase: \texttt{https://github.com/lab156/PAD-2025}.
+    \item Compile los programas \texttt{generate\_write.c} y \texttt{lineal\_args.c} ambos ubicados en la carpeta \texttt{PAD-2025/gradiente/regresion}. 
+    \item Establecer en el \texttt{Dockerfile} que al correr la imagen solo con el comando \texttt{run} (es decir, \textbf{sin} modo interactivo \texttt{-it}) debe de crear una carpeta llamada \texttt{data}, ejecutar \texttt{generate\_write} y guardar los resultados en \texttt{data} y finalmente ejecutar este archivo con el ejecutable \texttt{lineal\_args}. 
+\end{enumerate}
+
+
+\section{Python ctypes}
+En este problema, es necesario utilizar el ``virtual environment'' que creamos en clase y disponible en el repositorio de la clase en la carpeta \texttt{ProyectoUno}. Primero, agregue la librería de Python \texttt{scikit-learn}. Esta libreria contiene la base de datos llamada \texttt{iris}. El código para leer esta base de datos está incluido en el archivo \texttt{read\_iris.py}, especificamente en la función \texttt{get\_iris\_data} : 
+\begin{minted}{python}
+    def get_iris_data():
+        iris = load_iris()
+        # target is the dependent variable
+        y = iris.target
+        # data has 4 columns, we will only use the first one
+        x = [row[0] for row in iris.data]
+        return x, y
+\end{minted}
+Usando la librería \texttt{ctypes} de Python, enviar los datos a una función en C que encuentre la recta de regresión de los datos en \texttt{x} y \texttt{y}. Finalmente regrese a la función en Python los valores de $m$ y $b$.  Muestre los resultados imprimiendolos en la pantalla \textbf{desde Python}.  (40pts).
+
+\section{LAPACK}
+Escriba un programa en C que genere dos matrices aleatorias con componentes distribuidos uniformemente entre 0 y 100 de  tamaño $300\times 200$ con componentes de tipo \texttt{float}. Calcule el producto de la traspuesta de la primera por la segunda de forma que quede una matrix simétrica de $200\times 200$. Finalmente encuentre e imprima el número de condicionamiento del producto aprovechando la simetría de la matrix, e.j. \texttt{sircom}. Use solo funciones de la librería LAPACK (35pts).
+
+\end{document}
