@@ -80,7 +80,7 @@ int main(int argc, char *argv[]) {
     int num_data_points = 0;  // Number of data points to generate
 
     double learning_rate = 0.1; // Learning rate for gradient descent
-    int epochs = 1000;          // Number of iterations for gradient descent
+    int epochs = 10;          // Number of iterations for gradient descent
     
     struct timeval start_time, stop_time, elapsed_time;  // timers
 
@@ -138,10 +138,10 @@ int main(int argc, char *argv[]) {
     gettimeofday(&start_time,NULL); // Unix timer
                                     
     double estimated_slope, estimated_intercept;
-    //gradient_descent(num_data_points, learning_rate, epochs, &estimated_slope, &estimated_intercept, data_array);
+    gradient_descent(num_data_points, learning_rate, epochs, &estimated_slope, &estimated_intercept, data_array);
     //thread_gradient_descent(num_data_points, learning_rate, epochs, &estimated_slope, &estimated_intercept, data_array);
 
-    omp_gradient_descent(num_data_points, learning_rate, epochs, &estimated_slope, &estimated_intercept, data_array);
+    //omp_gradient_descent(num_data_points, learning_rate, epochs, &estimated_slope, &estimated_intercept, data_array);
 
 
     gettimeofday(&stop_time,NULL);

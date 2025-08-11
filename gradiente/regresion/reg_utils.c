@@ -96,7 +96,8 @@ void gradient_descent(int num_data, double learning_rate, int epochs,
         *m_estimated -= learning_rate * m_gradient;
         *b_estimated -= learning_rate * b_gradient;
 
-        if ((epoch + 1) % (epochs/2) == 0 || epoch == 0) {
+        //if ((epoch + 1) % (epochs/2) == 0 || epoch == 0) {
+        if (1) {
             double mse = 0.0;
             for (int i = 0; i < num_data; i++) {
                 double y_predicted = (*m_estimated) * data_array[i].x 

@@ -2,6 +2,11 @@ CC = gcc
 CFLAGS = -lm -O3 -Wall -fopenmp
 LFLAGS = -L. -lreg 
 
+MPICC = mpicc
+MPICFLAGS = -Wall -lm -Ofast 
+
+MPITARGET = mpi_lineal_args
+
 TARGET1 = linear_regr_grad_desc
 TARGET2 = mem_management
 TARGET3 = libreg.a
@@ -11,12 +16,11 @@ TARGET6 = viz
 
 LIBFILES = reg_utils.h reg_utils.c
 
-
 #compilacion directa con
 # gcc linear_regression_gd.c -o linear_regression_gd -lm
 #$(CC) $(CFLAGS) -o $(TARGET2) mem_management.c
 
-all: $(TARGET3) $(TARGET1) $(TARGET2)  $(TARGET4) $(TARGET5) $(TARGET6)
+all: $(TARGET3) $(TARGET1) $(TARGET2) $(TARGET4) $(TARGET5) $(TARGET6) $(MPITARGET)
 
 $(TARGET3): $(LIBFILES)
 	$(CC) -c reg_utils.c -o reg_utils.o 
@@ -36,6 +40,12 @@ $(TARGET5): $(TARGET5).c $(LIBFILES)
 
 $(TARGET6): $(TARGET6).c
 	$(CC) $(TARGET6).c $(LFLAGS) -o $(TARGET6) $(CFLAGS)
+
+$(MPITARGET).o: $(MPITARGET).c
+	$(MPICC) $(MPIFLAGS) -o $@ -c $<
+
+$(MPITARGET): $(MPITARGET).o
+	$(MPICC) $(MPIFLAGS) -o $@  $<
 
 clean:
 	rm $(TARGET1) $(TARGET2) $(TARGET3) $(TARGET4) $(TARGET5) $(TARGET6) reg_utils.o
